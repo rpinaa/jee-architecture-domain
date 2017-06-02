@@ -17,7 +17,7 @@
     <properties>
         <project.build.filterLevel>..</project.build.filterLevel>
 
-        <dozer.version>5.4.0</dozer.version>
+        <org.mapstruct.version>1.2.0.Beta3</org.mapstruct.version>
     </properties>
 
     <dependencies>
@@ -36,16 +36,18 @@
             <scope>provided</scope>
         </dependency>
 
+        <!-- MapStruct library -->
         <dependency>
-            <groupId>net.sf.dozer</groupId>
-            <artifactId>dozer</artifactId>
-            <version>${dozer.version}</version>
-            <exclusions>
-                <exclusion>
-                    <groupId>org.slf4j</groupId>
-                    <artifactId>slf4j-log4j12</artifactId>
-                </exclusion>
-            </exclusions>
+            <groupId>org.mapstruct</groupId>
+            <artifactId>mapstruct</artifactId>
+            <version>${org.mapstruct.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.mapstruct</groupId>
+            <artifactId>mapstruct-processor</artifactId>
+            <version>${org.mapstruct.version}</version>
+            <scope>provided</scope>
         </dependency>
 
         <!-- Unit Testing -->
