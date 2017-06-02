@@ -3,7 +3,6 @@ package org.com.rappid.ejb;
 import org.com.rappid.api.ChefService;
 import org.com.rappid.event.chef.*;
 import org.com.rappid.mapper.ChefMapper;
-import org.com.rappid.stereotype.Mapper;
 
 import javax.ejb.Local;
 import javax.ejb.Stateless;
@@ -17,7 +16,6 @@ import javax.inject.Inject;
 public class ChefServiceImpl implements ChefService {
 
     @Inject
-    @Mapper
     private ChefMapper chefMapper;
 
     @Override
