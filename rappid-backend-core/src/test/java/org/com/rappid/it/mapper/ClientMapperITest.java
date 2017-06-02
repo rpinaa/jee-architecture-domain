@@ -1,4 +1,4 @@
-package org.com.rappid.ejb.it.mapper;
+package org.com.rappid.it.mapper;
 
 import org.apache.openejb.junit.jee.EJBContainerRunner;
 import org.com.rappid.catalog.TelephoneType;
@@ -6,7 +6,6 @@ import org.com.rappid.domain.Client;
 import org.com.rappid.domain.Telephone;
 import org.com.rappid.entity.ClientEntity;
 import org.com.rappid.mapper.ClientMapper;
-import org.com.rappid.stereotype.Mapper;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -15,13 +14,12 @@ import org.junit.runner.RunWith;
 import javax.inject.Inject;
 
 /**
- * Created by PINA on 29/05/2017.
+ * Created by PINA on 02/06/2017.
  */
 @RunWith(EJBContainerRunner.class)
 public class ClientMapperITest {
 
     @Inject
-    @Mapper
     private ClientMapper clientMapper;
 
     private Client client;
@@ -69,4 +67,5 @@ public class ClientMapperITest {
         Assert.assertEquals(clientEntity.getTelephone().getLada(), client.getTelephone().getLada());
         Assert.assertEquals(clientEntity.getTelephone().getNumber(), client.getTelephone().getNumber());
     }
+
 }

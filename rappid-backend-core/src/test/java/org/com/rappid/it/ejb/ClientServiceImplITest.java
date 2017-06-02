@@ -1,4 +1,4 @@
-package org.com.rappid.ejb.it.ejb;
+package org.com.rappid.it.ejb;
 
 import org.apache.openejb.junit.jee.EJBContainerRunner;
 import org.com.rappid.api.ClientService;
