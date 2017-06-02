@@ -27,81 +27,27 @@
             <name>Ricardo Pina Arellano</name>
             <email>pinaarellano00@gmail.com</email>
         </developer>
-
-        <developer>
-            <id>maquechi</id>
-            <name>Luis Fernando Maqueda</name>
-            <email>lfer.mqd@gmail.com</email>
-        </developer>
-
-        <developer>
-            <id>gab</id>
-            <name>Gabriel Rojas Sánchez</name>
-            <email>iscgabrielrojas020@gmail.com</email>
-        </developer>
-
-        <developer>
-            <id>midagare</id>
-            <name>Miguel Daniel Garrido Reyes</name>
-            <email>midagare@gmail.com</email>
-        </developer>
-
-        <developer>
-            <id>ipenam</id>
-            <name>Ivan Peña Mercado</name>
-            <email>ipenam0801@gmail.com</email>
-        </developer>
     </developers>
 
     <contributors>
         <contributor>
             <name>Ricardo Pina Arellano</name>
             <email>pinaarellano0@gmail.com</email>
-            <url>https://someurl.com</url>
-            <organization>some_organization</organization>
-            <organizationUrl>https://myorganization.org</organizationUrl>
+            <url>https://www.linkedin.com/in/ricardo-pina-arellano-a8918a4b/</url>
             <roles>
-                <role>technical lead</role>
-            </roles>
-            <timezone>GMT</timezone>
-        </contributor>
-
-        <contributor>
-            <name>Ivan Pena</name>
-            <email>ipenam0801@gmail.com</email>
-            <url>https://someurl.com</url>
-            <organization>some_organization</organization>
-            <organizationUrl>https://myorganization.org</organizationUrl>
-            <roles>
-                <role>developer</role>
-            </roles>
-            <timezone>GMT</timezone>
-        </contributor>
-
-        <contributor>
-            <name>Luis Maqueda</name>
-            <email>fer.mqd@gmail.com</email>
-            <url>https://someurl.com</url>
-            <organization>some_organization</organization>
-            <organizationUrl>https://myorganization.org</organizationUrl>
-            <roles>
-                <role>developer</role>
-            </roles>
-            <timezone>GMT</timezone>
-        </contributor>
-
-        <contributor>
-            <name>Gabriel Rojas</name>
-            <email>iscgabrielrojas020@gmail.com</email>
-            <url>https://someurel.com</url>
-            <organization>some_organization</organization>
-            <organizationUrl>https://myorganization.org</organizationUrl>
-            <roles>
-                <role>developer</role>
+                <role>Technical lead</role>
             </roles>
             <timezone>GMT</timezone>
         </contributor>
     </contributors>
+
+    <licenses>
+        <license>
+            <name>MIT License</name>
+            <url>http://www.opensource.org/licenses/mit-license.php</url>
+            <distribution>repo</distribution>
+        </license>
+    </licenses>
 
     <properties>
         <project.build.environment>local</project.build.environment>
