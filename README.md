@@ -28,7 +28,7 @@ The **remotes** follow the convention:
 Set the project before start:
 
 ```sh
-$ cd oceejbd-6-training-course
+$ cd jee-architecture-domain
 ```
 
 For local environment:
