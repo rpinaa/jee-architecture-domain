@@ -1,0 +1,50 @@
+package org.com.rappid.entity;
+
+import lombok.*;
+
+import javax.persistence.*;
+import java.util.Set;
+
+/**
+ * Created by PINA on 25/05/2017.
+ */
+@Data
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+@Entity
+@Table(name = "T_RAPPID_ACCOUNT")
+@EqualsAndHashCode(callSuper = true)
+@NamedNativeQueries({
+        @NamedNativeQuery(
+                name = "delete",
+                query = "UPDATE T_RAPPID_ACCOUNT SET DELETE = 1 WHERE ID_ACCOUNT = ?"
+        )
+})
+public class AccountEntity extends AbstractEntity {
+
+    @Id
+    @Column(name = "ID_ACCOUNT", length = 32, nullable = false, updatable = false)
+    private String id;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "account", cascade = {CascadeType.REMOVE})
+    @Setter(AccessLevel.NONE)
+    @Getter(AccessLevel.NONE)
+    private Set<TelephoneEntity> telephones;
+
+    @Column(name = "FIRST_NAME", length = 80)
+    private String firstName;
+
+    @Column(name = "LAST_NAME", length = 80)
+    private String lastName;
+
+    @Column(name = "EMAIL", length = 50)
+    private String email;
+
+    @Lob
+    @Column(name = "SECRET")
+    private byte[] secret;
+
+    @Column(name = "DELETE")
+    private boolean deleted;
+}
