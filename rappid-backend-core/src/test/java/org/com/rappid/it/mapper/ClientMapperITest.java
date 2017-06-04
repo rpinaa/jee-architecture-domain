@@ -1,11 +1,17 @@
 package org.com.rappid.it.mapper;
 
-import org.apache.openejb.junit.jee.EJBContainerRunner;
 import org.com.rappid.catalog.TelephoneType;
 import org.com.rappid.domain.Client;
 import org.com.rappid.domain.Telephone;
 import org.com.rappid.entity.ClientEntity;
 import org.com.rappid.mapper.ClientMapper;
+import org.com.rappid.mapper.ClientMapperImpl;
+import org.jboss.arquillian.container.test.api.Deployment;
+import org.jboss.arquillian.junit.Arquillian;
+import org.jboss.shrinkwrap.api.Archive;
+import org.jboss.shrinkwrap.api.ShrinkWrap;
+import org.jboss.shrinkwrap.api.asset.EmptyAsset;
+import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -16,8 +22,15 @@ import javax.inject.Inject;
 /**
  * Created by PINA on 02/06/2017.
  */
-@RunWith(EJBContainerRunner.class)
+@RunWith(Arquillian.class)
 public class ClientMapperITest {
+
+    @Deployment
+    public static Archive<?> createDeployment() {
+        return ShrinkWrap.create(JavaArchive.class, "test.jar")
+                .addClasses(ClientMapper.class, ClientMapperImpl.class)
+                .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
+    }
 
     @Inject
     private ClientMapper clientMapper;
