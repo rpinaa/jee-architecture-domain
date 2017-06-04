@@ -16,10 +16,10 @@ import java.util.Set;
 @Table(name = "T_RAPPID_ACCOUNT")
 @EqualsAndHashCode(callSuper = true)
 @NamedNativeQueries({
-        @NamedNativeQuery(
-                name = "delete",
-                query = "UPDATE T_RAPPID_ACCOUNT SET DELETE = 1 WHERE ID_ACCOUNT = ?"
-        )
+    @NamedNativeQuery(
+            name = "Account.delete",
+            query = "UPDATE T_RAPPID_ACCOUNT SET DELETE = 1 WHERE ID_ACCOUNT = ?"
+    )
 })
 public class AccountEntity extends AbstractEntity {
 

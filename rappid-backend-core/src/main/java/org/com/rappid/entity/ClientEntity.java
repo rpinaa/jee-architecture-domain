@@ -15,10 +15,10 @@ import javax.persistence.*;
 @Table(name = "T_RAPPID_CLIENT")
 @EqualsAndHashCode(callSuper = true)
 @NamedNativeQueries({
-        @NamedNativeQuery(
-                name = "delete",
-                query = "UPDATE T_RAPPID_CLIENT SET DELETE = 1 WHERE ID_CLIENT = ?"
-        )
+    @NamedNativeQuery(
+            name = "Client.delete",
+            query = "UPDATE T_RAPPID_CLIENT SET DELETE = 1 WHERE ID_CLIENT = ?"
+    )
 })
 public class ClientEntity extends AbstractEntity {
 

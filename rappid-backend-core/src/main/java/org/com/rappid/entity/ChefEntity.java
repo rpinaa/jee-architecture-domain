@@ -16,10 +16,10 @@ import javax.persistence.*;
 @Table(name = "T_RAPPID_CHEF")
 @EqualsAndHashCode(callSuper = true)
 @NamedNativeQueries({
-        @NamedNativeQuery(
-                name = "delete",
-                query = "UPDATE T_RAPPID_CHEF SET DELETE = 1 WHERE ID_CHEF = ?"
-        )
+    @NamedNativeQuery(
+            name = "Chef.delete",
+            query = "UPDATE T_RAPPID_CHEF SET DELETE = 1 WHERE ID_CHEF = ?"
+    )
 })
 public class ChefEntity extends AbstractEntity {
 
