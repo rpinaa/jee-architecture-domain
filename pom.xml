@@ -64,6 +64,8 @@
 
         <!-- General Dependencies -->
         <lombok.version>1.16.16</lombok.version>
+        <tomee.version>7.0.1</tomee.version>
+        <glassfish.version>4.1.1</glassfish.version>
     </properties>
 
     <dependencies>
@@ -194,12 +196,12 @@
                 <dependency>
                     <groupId>org.apache.tomee</groupId>
                     <artifactId>arquillian-tomee-embedded</artifactId>
-                    <version>7.0.1</version>
+                    <version>${tomee.version}</version>
                 </dependency>
                 <dependency>
                     <groupId>org.apache.tomee</groupId>
                     <artifactId>tomee-embedded</artifactId>
-                    <version>7.0.1</version>
+                    <version>${tomee.version}</version>
                 </dependency>
             </dependencies>
         </profile>
@@ -218,13 +220,12 @@
                 <dependency>
                     <groupId>org.glassfish.main.extras</groupId>
                     <artifactId>glassfish-embedded-all</artifactId>
-                    <version>4.1.1</version>
+                    <version>${glassfish.version}</version>
                     <scope>test</scope>
                 </dependency>
                 <dependency>
                     <groupId>org.jboss.arquillian.container</groupId>
                     <artifactId>arquillian-glassfish-embedded-3.1</artifactId>
-                    <version>1.0.0.CR4</version>
                     <scope>test</scope>
                 </dependency>
                 <dependency>
