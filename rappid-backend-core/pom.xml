@@ -18,22 +18,42 @@
         <project.build.filterLevel>..</project.build.filterLevel>
 
         <org.mapstruct.version>1.2.0.Beta3</org.mapstruct.version>
+        <org.h2.version>1.4.195</org.h2.version>
     </properties>
 
-    <dependencies>
-        <!-- Rappid Backend Core API -->
-        <dependency>
-            <groupId>org.com.rappid</groupId>
-            <artifactId>rappid-backend-core-api</artifactId>
-            <version>0.0.1</version>
-        </dependency>
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>org.jboss.arquillian</groupId>
+                <artifactId>arquillian-bom</artifactId>
+                <version>1.1.11.Final</version>
+                <scope>import</scope>
+                <type>pom</type>
+            </dependency>
+            <dependency>
+                <groupId>org.jboss.arquillian.container</groupId>
+                <artifactId>arquillian-container-test-api</artifactId>
+                <version>1.1.11.Final</version>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
 
+    <dependencies>
         <!-- JEE 7 Web Profile -->
         <dependency>
             <groupId>javax</groupId>
             <artifactId>javaee-web-api</artifactId>
             <version>7.0</version>
             <scope>provided</scope>
+        </dependency>
+
+        <!-- Business Dependencies -->
+
+        <!-- Rappid Backend Core API -->
+        <dependency>
+            <groupId>org.com.rappid</groupId>
+            <artifactId>rappid-backend-core-api</artifactId>
+            <version>0.0.1</version>
         </dependency>
 
         <!-- MapStruct library -->
@@ -43,6 +63,8 @@
             <version>${org.mapstruct.version}</version>
             <scope>provided</scope>
         </dependency>
+
+        <!-- MapStruct Processor library -->
         <dependency>
             <groupId>org.mapstruct</groupId>
             <artifactId>mapstruct-processor</artifactId>
@@ -50,7 +72,17 @@
             <scope>provided</scope>
         </dependency>
 
+        <!-- / Business Dependencies -->
+
         <!-- Unit Testing -->
+
+        <!-- JUnit as Runner library -->
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.12</version>
+            <scope>test</scope>
+        </dependency>
 
         <!-- Mockito as Spy and Expect library -->
         <dependency>
@@ -60,28 +92,37 @@
             <scope>test</scope>
         </dependency>
 
+        <!-- / Unit Testing -->
+
         <!-- Integration Testing  -->
 
-        <!-- OpenEJB JUnit Web Profile  -->
-        <dependency>
-            <groupId>org.apache.openejb</groupId>
-            <artifactId>openejb-junit</artifactId>
-            <version>4.7.4</version>
-            <scope>test</scope>
-        </dependency>
-
-        <!-- JBoss JUnit Full Profile  -->
+        <!-- Arquillian JUnit Full Profile  -->
         <dependency>
             <groupId>org.jboss.arquillian.junit</groupId>
             <artifactId>arquillian-junit-container</artifactId>
-            <version>1.1.13.Final</version>
             <scope>test</scope>
         </dependency>
+        <dependency>
+            <groupId>org.jboss.arquillian.protocol</groupId>
+            <artifactId>arquillian-protocol-servlet</artifactId>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- H2 -->
+        <dependency>
+            <groupId>com.h2database</groupId>
+            <artifactId>h2</artifactId>
+            <version>${org.h2.version}</version>
+            <scope>test</scope>
+        </dependency>
+
+        <!-- / Integration Testing  -->
     </dependencies>
 
     <build>
         <pluginManagement>
             <plugins>
+                <!-- EJB jar plugin for packaging-->
                 <plugin>
                     <groupId>org.apache.maven.plugins</groupId>
                     <artifactId>maven-ejb-plugin</artifactId>
@@ -97,6 +138,7 @@
             </plugins>
         </pluginManagement>
         <plugins>
+            <!-- Assembly Fat jar plugin -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-assembly-plugin</artifactId>
