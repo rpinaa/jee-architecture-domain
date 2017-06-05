@@ -1,8 +1,5 @@
 package org.com.rappid.repository.jpa.impl;
 
-import lombok.AccessLevel;
-import lombok.Getter;
-import lombok.Setter;
 import org.com.rappid.repository.jpa.GenericJPARepository;
 
 import java.io.Serializable;
@@ -14,13 +11,9 @@ import java.util.List;
  */
 public abstract class GenericJPARepositoryImpl<T, ID extends Serializable> implements GenericJPARepository<T, ID> {
 
-    @Getter(AccessLevel.NONE)
-    @Setter(AccessLevel.NONE)
-    protected final Class<T> persistentClass;
+    private final Class<T> persistentClass;
 
-    @Getter(AccessLevel.NONE)
-    @Setter(AccessLevel.NONE)
-    protected Object entityManagerFactory;
+    private Object entityManagerFactory;
 
     @SuppressWarnings("unchecked")
     public GenericJPARepositoryImpl() {
