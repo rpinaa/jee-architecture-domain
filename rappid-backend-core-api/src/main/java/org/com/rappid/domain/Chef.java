@@ -10,9 +10,9 @@ import org.com.rappid.catalog.ChefStatusType;
  * Created by PINA on 31/05/2017.
  */
 @Data
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
 public class Chef {
 
     private String id;

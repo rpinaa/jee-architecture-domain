@@ -9,9 +9,9 @@ import lombok.NoArgsConstructor;
  * Created by PINA on 19/05/2017.
  */
 @Data
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
 public class Account {
 
     private String id;
