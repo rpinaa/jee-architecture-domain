@@ -11,9 +11,9 @@ import org.com.rappid.catalog.TelephoneType;
  */
 
 @Data
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-@Builder
 public class Telephone {
 
     private String name;
