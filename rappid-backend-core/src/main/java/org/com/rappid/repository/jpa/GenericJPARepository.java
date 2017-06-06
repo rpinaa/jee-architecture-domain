@@ -8,15 +8,17 @@ import java.util.List;
  */
 public interface GenericJPARepository<T, ID extends Serializable> {
 
-    void insert(final T entity);
+    long count();
 
-    void update(final T entity);
+    T insert(final T entity);
+
+    T update(final T entity);
 
     T findById(final ID id);
 
-    T delete(final ID id);
+    void delete(final ID id);
 
-    T delete(final T entity);
+    void delete(final T entity);
 
-    List<T> findAll();
+    List<T> findAll(final int page, final int size);
 }

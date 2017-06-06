@@ -2,9 +2,12 @@ package org.com.rappid.repository.jpa.impl;
 
 import org.com.rappid.repository.jpa.GenericJPARepository;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
 import java.util.List;
+import java.util.Optional;
 
 /**
  * Created by PINA on 24/05/2017.
@@ -13,7 +16,8 @@ public abstract class GenericJPARepositoryImpl<T, ID extends Serializable> imple
 
     private final Class<T> persistentClass;
 
-    private Object entityManagerFactory;
+    @PersistenceContext
+    private EntityManager entityManager;
 
     @SuppressWarnings("unchecked")
     public GenericJPARepositoryImpl() {
@@ -21,32 +25,48 @@ public abstract class GenericJPARepositoryImpl<T, ID extends Serializable> imple
     }
 
     @Override
-    public void insert(final T entity) {
-
+    public long count() {
+        return entityManager.createQuery("SELECT COUNT(T) FROM " + this.persistentClass.getSimpleName() + " T")
+                .getResultList().size();
     }
 
     @Override
-    public void update(final T entity) {
+    public T insert(final T entity) {
+        this.entityManager.persist(entity);
 
+        return entity;
+    }
+
+    @Override
+    public T update(final T entity) {
+        this.entityManager.merge(entity);
+
+        return entity;
     }
 
     @Override
     public T findById(final ID id) {
-        return null;
+        return this.entityManager.find(persistentClass, id);
     }
 
     @Override
-    public T delete(final ID id) {
-       return null;
+    public void delete(final ID id) {
+        final Optional<T> entity = Optional.of(this.findById(id));
+
+        entity.ifPresent(t -> this.entityManager.remove(t));
     }
 
     @Override
-    public T delete(final T entity) {
-        return null;
+    public void delete(final T entity) {
+        this.entityManager.remove(entity);
     }
 
     @Override
-    public List<T> findAll() {
-        return null;
+    @SuppressWarnings("unchecked")
+    public List<T> findAll(final int page, final int size) {
+        return entityManager.createQuery("SELECT T FROM " + this.persistentClass.getSimpleName() + " T")
+                .setFirstResult(page)
+                .setMaxResults(size)
+                .getResultList();
     }
 }
