@@ -3,6 +3,8 @@ package org.com.rappid.ejb;
 import org.com.rappid.api.ChefService;
 import org.com.rappid.event.chef.*;
 import org.com.rappid.mapper.ChefMapper;
+import org.com.rappid.repository.ChefRepository;
+import org.com.rappid.stereotype.Repository;
 
 import javax.ejb.Local;
 import javax.ejb.Stateless;
@@ -17,6 +19,10 @@ public class ChefServiceImpl implements ChefService {
 
     @Inject
     private ChefMapper chefMapper;
+
+    @Inject
+    @Repository
+    private ChefRepository chefRepository;
 
     @Override
     public ResponseChefEvent createChef(final CreateChefEvent createChefEvent) {
