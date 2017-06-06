@@ -80,5 +80,4 @@ public class ClientMapperITest {
         Assert.assertEquals(clientEntity.getTelephone().getLada(), client.getTelephone().getLada());
         Assert.assertEquals(clientEntity.getTelephone().getNumber(), client.getTelephone().getNumber());
     }
-
 }

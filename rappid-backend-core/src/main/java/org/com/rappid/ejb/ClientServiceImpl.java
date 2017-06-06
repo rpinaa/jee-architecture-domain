@@ -3,6 +3,8 @@ package org.com.rappid.ejb;
 import org.com.rappid.api.ClientService;
 import org.com.rappid.event.client.*;
 import org.com.rappid.mapper.ClientMapper;
+import org.com.rappid.repository.ClientRepository;
+import org.com.rappid.stereotype.Repository;
 
 import javax.ejb.Local;
 import javax.ejb.Stateless;
@@ -18,6 +20,10 @@ public class ClientServiceImpl implements ClientService {
 
     @Inject
     private ClientMapper clientMapper;
+
+    @Inject
+    @Repository
+    private ClientRepository clientRepository;
 
     @Override
     public ResponseClientEvent createClient(final CreateClientEvent createClientEvent) {
