@@ -1,12 +1,12 @@
 package org.com.rappid.it.ejb;
 
-import org.com.rappid.api.ClientService;
-import org.com.rappid.ejb.ClientServiceImpl;
-import org.com.rappid.mapper.ClientMapper;
-import org.com.rappid.mapper.ClientMapperImpl;
+import org.com.rappid.api.ChefService;
+import org.com.rappid.ejb.ChefServiceImpl;
+import org.com.rappid.mapper.ChefMapper;
+import org.com.rappid.mapper.ChefMapperImpl;
 import org.com.rappid.mapper.jpa.GenericMapper;
-import org.com.rappid.repository.ClientRepository;
-import org.com.rappid.repository.impl.ClientRepositoryImpl;
+import org.com.rappid.repository.ChefRepository;
+import org.com.rappid.repository.impl.ChefRepositoryImpl;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.Archive;
@@ -20,17 +20,17 @@ import org.junit.runner.RunWith;
 import javax.ejb.EJB;
 
 /**
- * Created by PINA on 22/05/2017.
+ * Created by PINA on 06/06/2017.
  */
 @RunWith(Arquillian.class)
-public class ClientServiceImplITest {
+public class ChefServiceImplITest {
 
     @Deployment
     public static Archive<?> createDeployment() {
         return ShrinkWrap.create(JavaArchive.class, "test.jar")
-                .addClasses(ClientServiceImpl.class)
-                .addClasses(GenericMapper.class, ClientMapper.class, ClientMapperImpl.class)
-                .addClasses(ClientRepository.class, ClientRepositoryImpl.class)
+                .addClasses(ChefServiceImpl.class)
+                .addClasses(GenericMapper.class, ChefMapper.class, ChefMapperImpl.class)
+                .addClasses(ChefRepository.class, ChefRepositoryImpl.class)
                 .addPackages(true, "org.com.rappid.repository.jpa", "org.com.rappid.entity")
                 .addPackages(true, "org.com.rappid.domain", "org.com.rappid.catalog")
                 .addPackages(true, "org.com.rappid.event", "org.com.rappid.api")
@@ -39,10 +39,10 @@ public class ClientServiceImplITest {
     }
 
     @EJB
-    private ClientService clientService;
+    private ChefService chefService;
 
     @Test
     public void validateJNDIInjection() {
-        Assert.assertNotNull(this.clientService);
+        Assert.assertNotNull(this.chefService);
     }
 }

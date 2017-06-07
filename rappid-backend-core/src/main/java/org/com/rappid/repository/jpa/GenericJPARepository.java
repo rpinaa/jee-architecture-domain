@@ -6,7 +6,7 @@ import java.util.List;
 /**
  * Created by PINA on 24/05/2017.
  */
-public interface GenericJPARepository<T, ID extends Serializable> {
+public interface GenericJPARepository<T extends Serializable, ID> {
 
     long count();
 

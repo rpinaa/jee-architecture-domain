@@ -1,6 +1,5 @@
 package org.com.rappid.repository.impl;
 
-import org.com.rappid.domain.Client;
 import org.com.rappid.entity.ClientEntity;
 import org.com.rappid.repository.ClientRepository;
 import org.com.rappid.repository.jpa.impl.GenericJPARepositoryImpl;
@@ -13,5 +12,5 @@ import javax.enterprise.context.ApplicationScoped;
  */
 @Repository
 @ApplicationScoped
-public class ClientRepositoryImpl extends GenericJPARepositoryImpl<Client, ClientEntity> implements ClientRepository {
+public class ClientRepositoryImpl extends GenericJPARepositoryImpl<ClientEntity, String> implements ClientRepository {
 }
