@@ -1,10 +1,7 @@
 package org.com.rappid.it.repository;
 
-import org.com.rappid.entity.AbstractEntity;
-import org.com.rappid.entity.ClientEntity;
 import org.com.rappid.repository.ClientRepository;
 import org.com.rappid.repository.impl.ClientRepositoryImpl;
-import org.com.rappid.repository.jpa.GenericJPARepository;
 import org.com.rappid.stereotype.Repository;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
@@ -27,8 +24,9 @@ public class ClientRepositoryITest {
     @Deployment
     public static Archive<?> createDeployment() {
         return ShrinkWrap.create(JavaArchive.class, "test.jar")
-                .addClasses(AbstractEntity.class, ClientEntity.class, GenericJPARepository.class, ClientRepository.class, ClientRepositoryImpl.class)
-                .addAsManifestResource("META-INF/persistence.xml", "META-INF/persistence.xml")
+                .addClasses(ClientRepository.class, ClientRepositoryImpl.class)
+                .addPackages(true, "org.com.rappid.repository.jpa", "org.com.rappid.entity")
+                .addAsResource("META-INF/persistence.xml")
                 .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
     }
 
