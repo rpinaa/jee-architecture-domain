@@ -1,6 +1,6 @@
 package org.com.rappid.repository.impl;
 
-import org.com.rappid.domain.Account;
+import org.com.rappid.entity.AccountEntity;
 import org.com.rappid.repository.AccountRepository;
 import org.com.rappid.repository.jpa.impl.GenericJPARepositoryImpl;
 import org.com.rappid.stereotype.Repository;
@@ -12,5 +12,5 @@ import javax.enterprise.context.ApplicationScoped;
  */
 @Repository
 @ApplicationScoped
-public class AccountRepositoryImpl extends GenericJPARepositoryImpl<Account, Long> implements AccountRepository {
+public class AccountRepositoryImpl extends GenericJPARepositoryImpl<AccountEntity, String> implements AccountRepository {
 }

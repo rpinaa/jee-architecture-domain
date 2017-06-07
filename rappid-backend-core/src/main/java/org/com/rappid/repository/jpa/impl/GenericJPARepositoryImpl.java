@@ -12,22 +12,26 @@ import java.util.Optional;
 /**
  * Created by PINA on 24/05/2017.
  */
-public abstract class GenericJPARepositoryImpl<T, ID extends Serializable> implements GenericJPARepository<T, ID> {
-
-    private final Class<T> persistentClass;
+public abstract class GenericJPARepositoryImpl<T extends Serializable, ID> implements GenericJPARepository<T, ID> {
 
     @PersistenceContext
     private EntityManager entityManager;
 
+    private Class<T> persistentClass;
+
     @SuppressWarnings("unchecked")
     public GenericJPARepositoryImpl() {
-        this.persistentClass = (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
+        this.persistentClass = (Class<T>) ((ParameterizedType) getClass()
+                .getSuperclass()
+                .getGenericSuperclass())
+                .getActualTypeArguments()[0];
     }
 
     @Override
     public long count() {
         return entityManager.createQuery("SELECT COUNT(T) FROM " + this.persistentClass.getSimpleName() + " T")
-                .getResultList().size();
+                .getResultList()
+                .size();
     }
 
     @Override
