@@ -27,9 +27,9 @@ public class AccountEntity extends AbstractEntity {
     @Column(name = "ID_ACCOUNT", length = 32, nullable = false, updatable = false)
     private String id;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "account", cascade = {CascadeType.REMOVE})
     @Setter(AccessLevel.NONE)
     @Getter(AccessLevel.NONE)
+    @OneToMany(mappedBy = "account", cascade = {CascadeType.REMOVE})
     private Set<TelephoneEntity> telephones;
 
     @Column(name = "FIRST_NAME", length = 80)

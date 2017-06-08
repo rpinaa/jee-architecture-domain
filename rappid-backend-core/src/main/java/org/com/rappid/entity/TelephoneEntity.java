@@ -21,9 +21,9 @@ public class TelephoneEntity extends AbstractEntity {
     @Column(name = "ID_TELEPHONE", length = 32, nullable = false, updatable = false)
     private String id;
 
+    @Getter(AccessLevel.NONE)
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "FK_ID_ACCOUNT")
-    @Getter(AccessLevel.NONE)
     private AccountEntity account;
 
     @Column(name = "NAME", length = 15)
