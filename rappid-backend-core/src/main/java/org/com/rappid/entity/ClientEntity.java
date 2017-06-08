@@ -17,7 +17,7 @@ import javax.persistence.*;
 @NamedNativeQueries({
     @NamedNativeQuery(
             name = "Client.delete",
-            query = "UPDATE T_RAPPID_CLIENT SET DELETE = 1 WHERE ID_CLIENT = ?"
+            query = "UPDATE T_RAPPID_CLIENT SET DELETED = 1 WHERE ID_CLIENT = ?"
     )
 })
 public class ClientEntity extends AbstractEntity {
@@ -43,6 +43,6 @@ public class ClientEntity extends AbstractEntity {
     @Column(name = "SECRET")
     private byte[] secret;
 
-    @Column(name = "DELETE")
+    @Column(name = "DELETED")
     private boolean deleted;
 }

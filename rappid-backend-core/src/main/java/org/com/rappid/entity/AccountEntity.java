@@ -18,7 +18,7 @@ import java.util.Set;
 @NamedNativeQueries({
     @NamedNativeQuery(
             name = "Account.delete",
-            query = "UPDATE T_RAPPID_ACCOUNT SET DELETE = 1 WHERE ID_ACCOUNT = ?"
+            query = "UPDATE T_RAPPID_ACCOUNT SET DELETED = 1 WHERE ID_ACCOUNT = ?"
     )
 })
 public class AccountEntity extends AbstractEntity {
@@ -45,6 +45,6 @@ public class AccountEntity extends AbstractEntity {
     @Column(name = "SECRET")
     private byte[] secret;
 
-    @Column(name = "DELETE")
+    @Column(name = "DELETED")
     private boolean deleted;
 }
