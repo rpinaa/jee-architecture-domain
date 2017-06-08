@@ -18,7 +18,7 @@ import javax.persistence.*;
 @NamedNativeQueries({
     @NamedNativeQuery(
             name = "Chef.delete",
-            query = "UPDATE T_RAPPID_CHEF SET DELETE = 1 WHERE ID_CHEF = ?"
+            query = "UPDATE T_RAPPID_CHEF SET DELETED = 1 WHERE ID_CHEF = ?"
     )
 })
 public class ChefEntity extends AbstractEntity {
@@ -53,6 +53,6 @@ public class ChefEntity extends AbstractEntity {
     @Enumerated(EnumType.STRING)
     private ChefStatusEnum chefStatusEnum;
 
-    @Column(name = "DELETE")
+    @Column(name = "DELETED")
     private boolean deleted;
 }
