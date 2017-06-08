@@ -29,9 +29,8 @@ public abstract class GenericJPARepositoryImpl<T extends Serializable, ID> imple
 
     @Override
     public long count() {
-        return entityManager.createQuery("SELECT COUNT(T) FROM " + this.persistentClass.getSimpleName() + " T")
-                .getResultList()
-                .size();
+        return (long) this.entityManager.createQuery("SELECT COUNT(T) FROM " + this.persistentClass.getSimpleName() + " T")
+                .getSingleResult();
     }
 
     @Override
@@ -50,7 +49,7 @@ public abstract class GenericJPARepositoryImpl<T extends Serializable, ID> imple
 
     @Override
     public T findById(final ID id) {
-        return this.entityManager.find(persistentClass, id);
+        return this.entityManager.find(this.persistentClass, id);
     }
 
     @Override
@@ -68,7 +67,7 @@ public abstract class GenericJPARepositoryImpl<T extends Serializable, ID> imple
     @Override
     @SuppressWarnings("unchecked")
     public List<T> findAll(final int page, final int size) {
-        return entityManager.createQuery("SELECT T FROM " + this.persistentClass.getSimpleName() + " T")
+        return this.entityManager.createQuery("SELECT T FROM " + this.persistentClass.getSimpleName() + " T")
                 .setFirstResult(page)
                 .setMaxResults(size)
                 .getResultList();
