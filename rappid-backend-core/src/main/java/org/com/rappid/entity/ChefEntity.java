@@ -2,8 +2,11 @@ package org.com.rappid.entity;
 
 import lombok.*;
 import org.com.rappid.entity.catalog.ChefStatusEnum;
+import org.com.rappid.group.chef.UpdateChefGroup;
 
 import javax.persistence.*;
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 
 /**
  * Created by PINA on 31/05/2017.
@@ -27,28 +30,24 @@ public class ChefEntity extends AbstractEntity {
     @Column(name = "ID_CHEF", length = 32, nullable = false, updatable = false)
     private String id;
 
+    @Valid
     @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     @JoinColumn(name = "FK_ID_ACCOUNT")
     private AccountEntity account;
 
-    @Column(name = "FIRST_NAME", length = 80)
-    private String firstName;
-
-    @Column(name = "LAST_NAME", length = 80)
-    private String lastName;
-
-    @Column(name = "EMAIL", length = 50)
-    private String email;
-
+    @NotNull(groups = {UpdateChefGroup.class})
     @Column(name = "CURP", length = 20)
     private String curp;
 
+    @NotNull(groups = {UpdateChefGroup.class})
     @Column(name = "RFC", length = 15)
     private String rfc;
 
+    @NotNull(groups = {UpdateChefGroup.class})
     @Column(name = "RATING")
-    private float rating;
+    private Float rating;
 
+    @NotNull(groups = {UpdateChefGroup.class})
     @Column(name = "CHEF_STATUS", length = 20)
     @Enumerated(EnumType.STRING)
     private ChefStatusEnum chefStatusEnum;

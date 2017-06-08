@@ -1,8 +1,11 @@
 package org.com.rappid.entity;
 
 import lombok.*;
+import org.com.rappid.group.chef.CreateChefGroup;
+import org.com.rappid.group.chef.UpdateChefGroup;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.Set;
 
 /**
@@ -32,16 +35,20 @@ public class AccountEntity extends AbstractEntity {
     @OneToMany(mappedBy = "account", cascade = {CascadeType.REMOVE})
     private Set<TelephoneEntity> telephones;
 
+    @NotNull(groups = {CreateChefGroup.class})
     @Column(name = "FIRST_NAME", length = 80)
     private String firstName;
 
+    @NotNull(groups = {CreateChefGroup.class})
     @Column(name = "LAST_NAME", length = 80)
     private String lastName;
 
+    @NotNull(groups = {CreateChefGroup.class})
     @Column(name = "EMAIL", length = 50)
     private String email;
 
     @Lob
+    @NotNull(groups = {UpdateChefGroup.class})
     @Column(name = "SECRET")
     private byte[] secret;
 
