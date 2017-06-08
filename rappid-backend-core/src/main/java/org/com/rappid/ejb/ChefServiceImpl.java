@@ -4,6 +4,7 @@ import org.com.rappid.api.ChefService;
 import org.com.rappid.entity.ChefEntity;
 import org.com.rappid.event.chef.*;
 import org.com.rappid.group.chef.CreateChefGroup;
+import org.com.rappid.group.chef.UpdateChefGroup;
 import org.com.rappid.mapper.ChefMapper;
 import org.com.rappid.repository.ChefRepository;
 import org.com.rappid.stereotype.Repository;
@@ -11,6 +12,8 @@ import org.com.rappid.stereotype.Repository;
 import javax.ejb.Local;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
+import javax.transaction.Transactional;
+import java.util.List;
 
 /**
  * Created by PINA on 31/05/2017.
@@ -27,6 +30,7 @@ public class ChefServiceImpl implements ChefService {
     private ChefRepository chefRepository;
 
     @Override
+    @Transactional
     public ResponseChefEvent createChef(final CreateChefEvent createChefEvent) {
 
         final ChefEntity chefEntity = this.chefMapper.map(createChefEvent.getChef(), CreateChefGroup.class);
@@ -37,22 +41,38 @@ public class ChefServiceImpl implements ChefService {
     }
 
     @Override
+    @Transactional
     public ResponseChefEvent getChefByIdChef(final RequestChefEvent requestChefEvent) {
-        return null;
+
+        final ChefEntity chefEntity = this.chefRepository.findById(requestChefEvent.getId());
+
+        return ResponseChefEvent.builder().chef(this.chefMapper.map(chefEntity)).build();
     }
 
     @Override
+    @Transactional
     public CatalogChefEvent getAllChefs(final RequestAllChefEvent requestAllChefEvent) {
-        return null;
+
+        final List<ChefEntity> chefEntities = this.chefRepository.findAll(requestAllChefEvent.getPage(), requestAllChefEvent.getLimit());
+        final long total = this.chefRepository.count();
+
+        return CatalogChefEvent.builder().chefs(this.chefMapper.mapListReverse(chefEntities)).total(total).build();
     }
 
     @Override
+    @Transactional
     public ResponseChefEvent updateChef(final UpdateChefEvent updateChefEvent) {
-        return null;
+
+        final ChefEntity chefEntity = this.chefMapper.map(updateChefEvent.getChef(), CreateChefGroup.class, UpdateChefGroup.class);
+
+        this.chefRepository.update(chefEntity);
+
+        return ResponseChefEvent.builder().chef(this.chefMapper.map(chefEntity)).build();
     }
 
     @Override
+    @Transactional(value = Transactional.TxType.REQUIRES_NEW)
     public void deleteChefByIdChef(final DeleteChefEvent deleteChefEvent) {
-
+        this.chefRepository.delete(deleteChefEvent.getId());
     }
 }
