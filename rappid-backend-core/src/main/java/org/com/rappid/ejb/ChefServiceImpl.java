@@ -1,7 +1,9 @@
 package org.com.rappid.ejb;
 
 import org.com.rappid.api.ChefService;
+import org.com.rappid.entity.ChefEntity;
 import org.com.rappid.event.chef.*;
+import org.com.rappid.group.chef.CreateChefGroup;
 import org.com.rappid.mapper.ChefMapper;
 import org.com.rappid.repository.ChefRepository;
 import org.com.rappid.stereotype.Repository;
@@ -26,7 +28,12 @@ public class ChefServiceImpl implements ChefService {
 
     @Override
     public ResponseChefEvent createChef(final CreateChefEvent createChefEvent) {
-        return null;
+
+        final ChefEntity chefEntity = this.chefMapper.map(createChefEvent.getChef(), CreateChefGroup.class);
+
+        this.chefRepository.insert(chefEntity);
+
+        return ResponseChefEvent.builder().chef(this.chefMapper.map(chefEntity)).build();
     }
 
     @Override
