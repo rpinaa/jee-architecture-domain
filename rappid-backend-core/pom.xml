@@ -41,10 +41,10 @@
     </dependencyManagement>
 
     <dependencies>
-        <!-- JEE 7 Web Profile -->
+        <!-- JEE 7 Full Profile -->
         <dependency>
             <groupId>javax</groupId>
-            <artifactId>javaee-web-api</artifactId>
+            <artifactId>javaee-api</artifactId>
             <version>7.0</version>
             <scope>provided</scope>
         </dependency>
