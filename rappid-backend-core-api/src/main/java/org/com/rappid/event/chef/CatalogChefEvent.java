@@ -17,6 +17,6 @@ import java.util.List;
 @AllArgsConstructor
 public class CatalogChefEvent {
 
-    private int total;
+    private long total;
     private List<Chef> chefs;
 }
