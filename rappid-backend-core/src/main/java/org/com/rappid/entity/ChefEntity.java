@@ -1,6 +1,8 @@
 package org.com.rappid.entity;
 
 import lombok.*;
+import org.com.rappid.constraint.Curp;
+import org.com.rappid.constraint.Rfc;
 import org.com.rappid.entity.catalog.ChefStatusEnum;
 import org.com.rappid.group.chef.UpdateChefGroup;
 
@@ -35,10 +37,12 @@ public class ChefEntity extends AbstractEntity {
     @JoinColumn(name = "FK_ID_ACCOUNT")
     private AccountEntity account;
 
+    @Curp
     @NotNull(groups = {UpdateChefGroup.class})
     @Column(name = "CURP", length = 20)
     private String curp;
 
+    @Rfc
     @NotNull(groups = {UpdateChefGroup.class})
     @Column(name = "RFC", length = 15)
     private String rfc;
