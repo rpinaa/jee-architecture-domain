@@ -39,12 +39,12 @@ public class ChefEntity extends AbstractEntity {
 
     @Curp
     @NotNull(groups = {UpdateChefGroup.class})
-    @Column(name = "CURP", length = 20)
+    @Column(name = "CURP", length = 18)
     private String curp;
 
     @Rfc
     @NotNull(groups = {UpdateChefGroup.class})
-    @Column(name = "RFC", length = 15)
+    @Column(name = "RFC", length = 13)
     private String rfc;
 
     @NotNull(groups = {UpdateChefGroup.class})
