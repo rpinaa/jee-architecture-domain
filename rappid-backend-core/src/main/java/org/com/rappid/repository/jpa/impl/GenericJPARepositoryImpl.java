@@ -6,6 +6,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import java.io.Serializable;
 import java.lang.reflect.ParameterizedType;
+import java.lang.reflect.Type;
 import java.util.List;
 import java.util.Optional;
 
@@ -17,14 +18,22 @@ public abstract class GenericJPARepositoryImpl<T extends Serializable, ID> imple
     @PersistenceContext
     private EntityManager entityManager;
 
-    private Class<T> persistentClass;
+    private final Class<T> persistentClass;
 
     @SuppressWarnings("unchecked")
     public GenericJPARepositoryImpl() {
-        this.persistentClass = (Class<T>) ((ParameterizedType) getClass()
-                .getSuperclass()
-                .getGenericSuperclass())
-                .getActualTypeArguments()[0];
+
+        Type type = getClass().getGenericSuperclass();
+
+        while (!(type instanceof ParameterizedType) || ((ParameterizedType) type).getRawType() != GenericJPARepositoryImpl.class) {
+            if (type instanceof ParameterizedType) {
+                type = ((Class<?>) ((ParameterizedType) type).getRawType()).getGenericSuperclass();
+            } else {
+                type = ((Class<?>) type).getGenericSuperclass();
+            }
+        }
+
+        this.persistentClass = (Class<T>) ((ParameterizedType) type).getActualTypeArguments()[0];
     }
 
     @Override

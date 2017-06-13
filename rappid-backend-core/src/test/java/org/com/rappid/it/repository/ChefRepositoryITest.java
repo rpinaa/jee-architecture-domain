@@ -7,6 +7,7 @@ import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.Archive;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
+import org.jboss.shrinkwrap.api.asset.ClassLoaderAsset;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Assert;
@@ -26,7 +27,7 @@ public class ChefRepositoryITest {
         return ShrinkWrap.create(JavaArchive.class, "test.jar")
                 .addClasses(ChefRepository.class, ChefRepositoryImpl.class)
                 .addPackages(true, "org.com.rappid.repository.jpa", "org.com.rappid.entity")
-                .addAsResource("META-INF/persistence.xml")
+                .addAsResource(new ClassLoaderAsset("META-INF/persistence.xml"), "META-INF/persistence.xml")
                 .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
     }
 

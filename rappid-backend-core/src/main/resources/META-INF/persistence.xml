@@ -10,6 +10,7 @@
             <property name="javax.persistence.schema-generation.database.action" value="${app.schema.action}" />
             <property name="javax.persistence.schema-generation.create-source" value="${app.schema.create}"/>
             <property name="javax.persistence.schema-generation.drop-source" value="${app.schema.drop}"/>
+            <property name="openjpa.jdbc.SynchronizeMappings" value="buildSchema(ForeignKeys=true)"/>
         </properties>
     </persistence-unit>
 </persistence>

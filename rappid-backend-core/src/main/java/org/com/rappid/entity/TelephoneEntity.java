@@ -13,23 +13,21 @@ import javax.validation.constraints.Size;
  * Created by PINA on 28/05/2017.
  */
 @Data
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
 @Entity
 @Table(name = "T_RAPPID_TELEPHONE")
 @EqualsAndHashCode(callSuper = true)
+@NoArgsConstructor
 public class TelephoneEntity extends AbstractEntity {
 
     @Id
-    @Column(name = "ID_TELEPHONE", length = 32, nullable = false, updatable = false)
+    @Column(name = "ID_TELEPHONE", length = 36, nullable = false, updatable = false)
     private String id;
 
     @NotNull(groups = UpdateChefGroup.class)
     @Getter(AccessLevel.NONE)
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "FK_ID_ACCOUNT")
-    private AccountEntity account;
+    @JoinColumn(name = "FK_ID_CHEF")
+    private ChefEntity chef;
 
     @Size(min = 2, max = 15)
     @NotNull(groups = {CreateClientGroup.class, UpdateChefGroup.class})

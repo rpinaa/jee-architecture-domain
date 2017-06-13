@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<resources>
+
+    <Resource id="myDatabase" type="DataSource">
+        JdbcDriver org.h2.Driver
+        JdbcUrl jdbc:h2:mem:testdb
+        UserName root
+        Password
+        JtaManaged true
+    </Resource>
+
+    <!-- MySQL Local DataSource
+    <Resource id="myDatabase" type="DataSource">
+        JdbcDriver com.mysql.jdbc.Driver
+        JdbcUrl jdbc:mysql://localhost/test
+        UserName root
+        Password
+        JtaManaged true
+    </Resource>
+    -->
+</resources>
