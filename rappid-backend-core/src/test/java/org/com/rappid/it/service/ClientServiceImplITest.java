@@ -1,7 +1,7 @@
-package org.com.rappid.it.ejb;
+package org.com.rappid.it.service;
 
 import org.com.rappid.api.ClientService;
-import org.com.rappid.ejb.ClientServiceImpl;
+import org.com.rappid.service.ClientServiceImpl;
 import org.com.rappid.mapper.ClientMapper;
 import org.com.rappid.mapper.ClientMapperImpl;
 import org.com.rappid.mapper.jpa.GenericMapper;

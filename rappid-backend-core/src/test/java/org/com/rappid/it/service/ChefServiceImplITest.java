@@ -1,12 +1,12 @@
-package org.com.rappid.it.ejb;
+package org.com.rappid.it.service;
 
 import org.com.rappid.api.ChefService;
-import org.com.rappid.ejb.ChefServiceImpl;
+import org.com.rappid.service.ChefServiceImpl;
 import org.com.rappid.event.chef.CatalogChefEvent;
 import org.com.rappid.event.chef.CreateChefEvent;
 import org.com.rappid.event.chef.RequestAllChefEvent;
 import org.com.rappid.event.chef.ResponseChefEvent;
-import org.com.rappid.it.ejb.stub.ChefServiceStub;
+import org.com.rappid.it.service.stub.ChefServiceStub;
 import org.com.rappid.mapper.ChefMapper;
 import org.com.rappid.mapper.ChefMapperImpl;
 import org.com.rappid.mapper.jpa.GenericMapper;

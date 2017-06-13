@@ -1,7 +1,7 @@
 package org.com.rappid.ut.ejb;
 
 import org.com.rappid.api.ChefService;
-import org.com.rappid.ejb.ChefServiceImpl;
+import org.com.rappid.service.ChefServiceImpl;
 import org.com.rappid.mapper.ChefMapper;
 import org.com.rappid.repository.ChefRepository;
 import org.junit.Assert;
