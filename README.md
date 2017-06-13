@@ -34,7 +34,7 @@ $ cd jee-architecture-domain
 For local environment:
 
 ```sh
-$ mvn clean test -P local
+$ mvn clean install -P local
 ```
 
 For development environment:
@@ -63,25 +63,29 @@ Set the project before start:
 $ cd jee-architecture-domain
 ```
 
-For local environment (TomEE 7 embedded):
+For local environment:
+(TomEE 7 embedded)
 
 ```sh
 $ mvn clean test -P local
 ```
 
-For development environment (Wildfly 8 embedded):
+For development environment:
+(Wildfly 8 embedded)
 
 ```sh
 $ mvn clean test -P development
 ```
 
-For staging environment (GlassFish 4 embedded):
+For staging environment:
+(GlassFish 4 embedded)
 
 ```sh
 $ mvn clean test -P staging
 ```
 
-For production environment (GlassFish 4 embedded):
+For production environment:
+(GlassFish 4 embedded)
 
 ```sh
 $ mvn clean test -P production
