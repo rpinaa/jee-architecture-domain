@@ -11,6 +11,7 @@ import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.Archive;
 import org.jboss.shrinkwrap.api.ShrinkWrap;
+import org.jboss.shrinkwrap.api.asset.ClassLoaderAsset;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Assert;
@@ -34,7 +35,7 @@ public class ClientServiceImplITest {
                 .addPackages(true, "org.com.rappid.repository.jpa", "org.com.rappid.entity")
                 .addPackages(true, "org.com.rappid.domain", "org.com.rappid.catalog")
                 .addPackages(true, "org.com.rappid.event", "org.com.rappid.api")
-                .addAsResource("META-INF/persistence.xml")
+                .addAsResource(new ClassLoaderAsset("META-INF/persistence.xml"), "META-INF/persistence.xml")
                 .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
     }
 
