@@ -34,25 +34,57 @@ $ cd jee-architecture-domain
 For local environment:
 
 ```sh
-$ mvn clean -P local
+$ mvn clean test -P local
 ```
 
 For development environment:
 
 ```sh
-$ mvn clean -P development
+$ mvn clean install -P development
 ```
 
 For staging environment:
 
 ```sh
-$ mvn clean -P staging
+$ mvn clean install -P staging
 ```
 
 For production environment:
 
 ```sh
-$ mvn clean -P production
+$ mvn clean install -P production
+```
+
+### Testing
+
+Set the project before start:
+
+```sh
+$ cd jee-architecture-domain
+```
+
+For local environment (TomEE 7 embedded):
+
+```sh
+$ mvn clean test -P local
+```
+
+For development environment (Wildfly 8 embedded):
+
+```sh
+$ mvn clean test -P development
+```
+
+For staging environment (GlassFish 4 embedded):
+
+```sh
+$ mvn clean test -P staging
+```
+
+For production environment (GlassFish 4 embedded):
+
+```sh
+$ mvn clean test -P production
 ```
 
 ## License
