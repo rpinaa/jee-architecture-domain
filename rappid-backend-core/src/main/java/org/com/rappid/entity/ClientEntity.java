@@ -1,6 +1,8 @@
 package org.com.rappid.entity;
 
-import lombok.*;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.NoArgsConstructor;
 import org.com.rappid.constraint.Email;
 import org.com.rappid.group.client.CreateClientGroup;
 
@@ -13,12 +15,10 @@ import javax.validation.constraints.Size;
  * Created by PINA on 28/05/2017.
  */
 @Data
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
 @Entity
 @Table(name = "T_RAPPID_CLIENT")
 @EqualsAndHashCode(callSuper = true)
+@NoArgsConstructor
 @NamedNativeQueries({
     @NamedNativeQuery(
             name = "Client.delete",
@@ -28,7 +28,7 @@ import javax.validation.constraints.Size;
 public class ClientEntity extends AbstractEntity {
 
     @Id
-    @Column(name = "ID_CLIENT", length = 32, nullable = false, updatable = false)
+    @Column(name = "ID_CLIENT", length = 36, nullable = false, updatable = false)
     private String id;
 
     @Valid

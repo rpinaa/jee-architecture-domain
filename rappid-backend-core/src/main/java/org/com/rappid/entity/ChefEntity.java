@@ -9,17 +9,16 @@ import org.com.rappid.group.chef.UpdateChefGroup;
 import javax.persistence.*;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
+import java.util.Set;
 
 /**
  * Created by PINA on 31/05/2017.
  */
 @Data
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
 @Entity
 @Table(name = "T_RAPPID_CHEF")
 @EqualsAndHashCode(callSuper = true)
+@NoArgsConstructor
 @NamedNativeQueries({
     @NamedNativeQuery(
             name = "Chef.delete",
@@ -29,7 +28,7 @@ import javax.validation.constraints.NotNull;
 public class ChefEntity extends AbstractEntity {
 
     @Id
-    @Column(name = "ID_CHEF", length = 32, nullable = false, updatable = false)
+    @Column(name = "ID_CHEF", length = 36, nullable = false, updatable = false)
     private String id;
 
     @Valid
@@ -37,12 +36,17 @@ public class ChefEntity extends AbstractEntity {
     @JoinColumn(name = "FK_ID_ACCOUNT")
     private AccountEntity account;
 
-    @Curp
+    @Setter(AccessLevel.NONE)
+    @Getter(AccessLevel.NONE)
+    @OneToMany(mappedBy = "chef")
+    private Set<TelephoneEntity> telephones;
+
+    @Curp(groups = {UpdateChefGroup.class})
     @NotNull(groups = {UpdateChefGroup.class})
     @Column(name = "CURP", length = 18)
     private String curp;
 
-    @Rfc
+    @Rfc(groups = {UpdateChefGroup.class})
     @NotNull(groups = {UpdateChefGroup.class})
     @Column(name = "RFC", length = 13)
     private String rfc;
