@@ -1,4 +1,4 @@
-package org.com.rappid.ejb;
+package org.com.rappid.service;
 
 import org.com.rappid.api.ClientService;
 import org.com.rappid.event.client.*;
