@@ -1,4 +1,4 @@
-package org.com.rappid.ejb;
+package org.com.rappid.service;
 
 import org.com.rappid.api.ChefService;
 import org.com.rappid.entity.ChefEntity;

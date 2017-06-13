@@ -1,4 +1,4 @@
-package org.com.rappid.it.ejb.stub;
+package org.com.rappid.it.service.stub;
 
 import org.com.rappid.domain.Account;
 import org.com.rappid.domain.Chef;
