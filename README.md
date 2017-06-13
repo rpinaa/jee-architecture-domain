@@ -34,25 +34,25 @@ $ cd jee-architecture-domain
 For local environment:
 
 ```sh
-$ mvn clean install -P local
+$ mvn clean install -Dmaven.test.skip=true -P local
 ```
 
 For development environment:
 
 ```sh
-$ mvn clean install -P development
+$ mvn clean install -Dmaven.test.skip=true -P development
 ```
 
 For staging environment:
 
 ```sh
-$ mvn clean install -P staging
+$ mvn clean install -Dmaven.test.skip=true -P staging
 ```
 
 For production environment:
 
 ```sh
-$ mvn clean install -P production
+$ mvn clean install -Dmaven.test.skip=true -P production
 ```
 
 ### Testing
@@ -64,6 +64,7 @@ $ cd jee-architecture-domain
 ```
 
 For local environment:
+
 (TomEE 7 embedded)
 
 ```sh
@@ -71,6 +72,7 @@ $ mvn clean test -P local
 ```
 
 For development environment:
+
 (Wildfly 8 embedded)
 
 ```sh
@@ -78,6 +80,7 @@ $ mvn clean test -P development
 ```
 
 For staging environment:
+
 (GlassFish 4 embedded)
 
 ```sh
@@ -85,6 +88,7 @@ $ mvn clean test -P staging
 ```
 
 For production environment:
+
 (GlassFish 4 embedded)
 
 ```sh
