@@ -64,9 +64,7 @@ public class ChefServiceImpl implements ChefService {
         final long total = this.chefRepository.count();
 
         return new AsyncResult<>(CatalogChefEvent.builder()
-                .chefs(this.chefMapper.mapListReverse(chefEntities))
-                .total(total)
-                .build());
+                .chefs(this.chefMapper.mapListReverse(chefEntities)).total(total).build());
     }
 
     @Override
@@ -82,6 +80,7 @@ public class ChefServiceImpl implements ChefService {
     }
 
     @Override
+    @Asynchronous
     @Transactional(value = Transactional.TxType.REQUIRES_NEW)
     public void deleteChefByIdChef(final DeleteChefEvent deleteChefEvent) {
         this.chefRepository.delete(deleteChefEvent.getId());
