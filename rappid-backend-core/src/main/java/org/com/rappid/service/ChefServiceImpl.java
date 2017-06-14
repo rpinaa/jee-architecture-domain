@@ -9,13 +9,14 @@ import org.com.rappid.mapper.ChefMapper;
 import org.com.rappid.repository.ChefRepository;
 import org.com.rappid.stereotype.Repository;
 
+import javax.ejb.AsyncResult;
+import javax.ejb.Asynchronous;
 import javax.ejb.Local;
 import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.transaction.Transactional;
 import java.util.List;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
 /**
  * Created by PINA on 31/05/2017.
@@ -31,54 +32,53 @@ public class ChefServiceImpl implements ChefService {
     @Repository
     private ChefRepository chefRepository;
 
-    private final ExecutorService executorService = Executors.newFixedThreadPool(5);
-
     @Override
+    @Asynchronous
     @Transactional
-    public ResponseChefEvent createChef(final CreateChefEvent createChefEvent) {
+    public Future<ResponseChefEvent> createChef(final CreateChefEvent createChefEvent) {
 
         final ChefEntity chefEntity = this.chefMapper.map(createChefEvent.getChef(), CreateChefGroup.class);
 
         this.chefRepository.insert(chefEntity);
 
-        return ResponseChefEvent.builder().chef(this.chefMapper.map(chefEntity)).build();
+        return new AsyncResult<>(ResponseChefEvent.builder().chef(this.chefMapper.map(chefEntity)).build());
     }
 
     @Override
+    @Asynchronous
     @Transactional
-    public ResponseChefEvent getChefByIdChef(final RequestChefEvent requestChefEvent) {
+    public Future<ResponseChefEvent> getChefByIdChef(final RequestChefEvent requestChefEvent) {
 
         final ChefEntity chefEntity = this.chefRepository.findById(requestChefEvent.getId());
 
-        return ResponseChefEvent.builder().chef(this.chefMapper.map(chefEntity)).build();
+        return new AsyncResult<>(ResponseChefEvent.builder().chef(this.chefMapper.map(chefEntity)).build());
     }
 
     @Override
+    @Asynchronous
     @Transactional
-    public CatalogChefEvent getAllChefs(final RequestAllChefEvent requestAllChefEvent) {
+    public Future<CatalogChefEvent> getAllChefs(final RequestAllChefEvent requestAllChefEvent) {
 
-        List<ChefEntity> chefEntities = null;
-        long total = 0;
+        final List<ChefEntity> chefEntities = this.chefRepository
+                .findAll(requestAllChefEvent.getPage() - 1, requestAllChefEvent.getLimit());
+        final long total = this.chefRepository.count();
 
-        try {
-            chefEntities = this.executorService.submit(() -> this.chefRepository
-                    .findAll(requestAllChefEvent.getPage() - 1, requestAllChefEvent.getLimit())).get();
-
-            total = this.executorService.submit(() -> this.chefRepository.count()).get();
-        } catch (final Exception ignored) {}
-
-        return CatalogChefEvent.builder().chefs(this.chefMapper.mapListReverse(chefEntities)).total(total).build();
+        return new AsyncResult<>(CatalogChefEvent.builder()
+                .chefs(this.chefMapper.mapListReverse(chefEntities))
+                .total(total)
+                .build());
     }
 
     @Override
+    @Asynchronous
     @Transactional
-    public ResponseChefEvent updateChef(final UpdateChefEvent updateChefEvent) {
+    public Future<ResponseChefEvent> updateChef(final UpdateChefEvent updateChefEvent) {
 
         final ChefEntity chefEntity = this.chefMapper.map(updateChefEvent.getChef(), CreateChefGroup.class, UpdateChefGroup.class);
 
         this.chefRepository.update(chefEntity);
 
-        return ResponseChefEvent.builder().chef(this.chefMapper.map(chefEntity)).build();
+        return new AsyncResult<>(ResponseChefEvent.builder().chef(this.chefMapper.map(chefEntity)).build());
     }
 
     @Override
