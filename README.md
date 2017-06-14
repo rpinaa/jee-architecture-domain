@@ -34,25 +34,25 @@ $ cd jee-architecture-domain
 For local environment:
 
 ```sh
-$ mvn clean install -Dmaven.test.skip=true -P local
+$ mvn clean install -DskipTests -P local
 ```
 
 For development environment:
 
 ```sh
-$ mvn clean install -Dmaven.test.skip=true -P development
+$ mvn clean install -DskipTests -P development
 ```
 
 For staging environment:
 
 ```sh
-$ mvn clean install -Dmaven.test.skip=true -P staging
+$ mvn clean install -DskipTests -P staging
 ```
 
 For production environment:
 
 ```sh
-$ mvn clean install -Dmaven.test.skip=true -P production
+$ mvn clean install -DskipTests -P production
 ```
 
 ### Testing
