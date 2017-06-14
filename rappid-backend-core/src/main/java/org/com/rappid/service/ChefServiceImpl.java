@@ -62,7 +62,7 @@ public class ChefServiceImpl implements ChefService {
 
         try {
             chefEntities = this.executorService.submit(() -> this.chefRepository
-                    .findAll(requestAllChefEvent.getPage(), requestAllChefEvent.getLimit())).get();
+                    .findAll(requestAllChefEvent.getPage() - 1, requestAllChefEvent.getLimit())).get();
 
             total = this.executorService.submit(() -> this.chefRepository.count()).get();
         } catch (final Exception ignored) {}

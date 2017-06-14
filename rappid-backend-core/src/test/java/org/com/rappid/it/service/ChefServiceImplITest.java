@@ -1,11 +1,8 @@
 package org.com.rappid.it.service;
 
 import org.com.rappid.api.ChefService;
+import org.com.rappid.event.chef.*;
 import org.com.rappid.service.ChefServiceImpl;
-import org.com.rappid.event.chef.CatalogChefEvent;
-import org.com.rappid.event.chef.CreateChefEvent;
-import org.com.rappid.event.chef.RequestAllChefEvent;
-import org.com.rappid.event.chef.ResponseChefEvent;
 import org.com.rappid.it.service.stub.ChefServiceStub;
 import org.com.rappid.mapper.ChefMapper;
 import org.com.rappid.mapper.ChefMapperImpl;
@@ -20,6 +17,7 @@ import org.jboss.shrinkwrap.api.asset.ClassLoaderAsset;
 import org.jboss.shrinkwrap.api.asset.EmptyAsset;
 import org.jboss.shrinkwrap.api.spec.JavaArchive;
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -48,25 +46,25 @@ public class ChefServiceImplITest {
     @EJB
     private ChefService chefService;
 
-    @Test
-    public void validateJNDIInjection() {
-        Assert.assertNotNull(this.chefService);
+    private ResponseChefEvent responseChefEvent;
+
+    @Before
+    public void beforeEach() {
+        final CreateChefEvent createChefEvent = ChefServiceStub.createChefEvent();
+
+        this.responseChefEvent = this.chefService.createChef(createChefEvent);
     }
 
     @Test
     public void createChef() {
 
-        final CreateChefEvent createChefEvent = ChefServiceStub.createChefEvent();
-
-        final ResponseChefEvent responseChefEvent = this.chefService.createChef(createChefEvent);
-
-        Assert.assertNotNull(responseChefEvent);
-        Assert.assertNotNull(responseChefEvent.getChef());
-        Assert.assertNotNull(responseChefEvent.getChef().getId());
-        Assert.assertNotNull(responseChefEvent.getChef().getChangeDate());
-        Assert.assertNotNull(responseChefEvent.getChef().getCreateDate());
-        Assert.assertNotNull(responseChefEvent.getChef().getAccount());
-        Assert.assertNotNull(responseChefEvent.getChef().getAccount().getId());
+        Assert.assertNotNull(this.responseChefEvent);
+        Assert.assertNotNull(this.responseChefEvent.getChef());
+        Assert.assertNotNull(this.responseChefEvent.getChef().getId());
+        Assert.assertNotNull(this.responseChefEvent.getChef().getChangeDate());
+        Assert.assertNotNull(this.responseChefEvent.getChef().getCreateDate());
+        Assert.assertNotNull(this.responseChefEvent.getChef().getAccount());
+        Assert.assertNotNull(this.responseChefEvent.getChef().getAccount().getId());
     }
 
     @Test
@@ -77,5 +75,22 @@ public class ChefServiceImplITest {
         final CatalogChefEvent catalogChefEvent = this.chefService.getAllChefs(requestAllChefEvent);
 
         Assert.assertNotNull(catalogChefEvent);
+        Assert.assertNotNull(catalogChefEvent.getChefs());
+        Assert.assertEquals(catalogChefEvent.getChefs().size(), 1);
+        Assert.assertEquals(catalogChefEvent.getTotal(), 1);
+    }
+
+    @Test
+    public void getChef() {
+
+        final RequestChefEvent requestChefEvent = RequestChefEvent.builder()
+                .id(this.responseChefEvent.getChef().getId())
+                .build();
+
+        final ResponseChefEvent responseChefEvent = this.chefService.getChefByIdChef(requestChefEvent);
+
+        Assert.assertNotNull(responseChefEvent);
+        Assert.assertNotNull(responseChefEvent.getChef());
+        Assert.assertEquals(responseChefEvent.getChef(), this.responseChefEvent.getChef());
     }
 }
