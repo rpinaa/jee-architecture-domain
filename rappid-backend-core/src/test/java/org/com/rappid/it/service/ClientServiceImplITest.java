@@ -7,6 +7,7 @@ import org.com.rappid.mapper.ClientMapperImpl;
 import org.com.rappid.mapper.jpa.GenericMapper;
 import org.com.rappid.repository.ClientRepository;
 import org.com.rappid.repository.impl.ClientRepositoryImpl;
+import org.com.rappid.stereotype.Repository;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.Archive;
@@ -31,8 +32,9 @@ public class ClientServiceImplITest {
         return ShrinkWrap.create(JavaArchive.class, "test.jar")
                 .addClasses(ClientServiceImpl.class)
                 .addClasses(GenericMapper.class, ClientMapper.class, ClientMapperImpl.class)
-                .addClasses(ClientRepository.class, ClientRepositoryImpl.class)
+                .addClasses(ClientRepository.class, ClientRepositoryImpl.class, Repository.class)
                 .addPackages(true, "org.com.rappid.repository.jpa", "org.com.rappid.entity")
+                .addPackages(true, "org.com.rappid.group", "org.com.rappid.constraint")
                 .addPackages(true, "org.com.rappid.domain", "org.com.rappid.catalog")
                 .addPackages(true, "org.com.rappid.event", "org.com.rappid.api")
                 .addAsResource(new ClassLoaderAsset("META-INF/persistence.xml"), "META-INF/persistence.xml")

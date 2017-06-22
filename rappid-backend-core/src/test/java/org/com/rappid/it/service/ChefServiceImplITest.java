@@ -2,13 +2,14 @@ package org.com.rappid.it.service;
 
 import org.com.rappid.api.ChefService;
 import org.com.rappid.event.chef.*;
-import org.com.rappid.service.ChefServiceImpl;
 import org.com.rappid.it.service.stub.ChefServiceStub;
 import org.com.rappid.mapper.ChefMapper;
 import org.com.rappid.mapper.ChefMapperImpl;
 import org.com.rappid.mapper.jpa.GenericMapper;
 import org.com.rappid.repository.ChefRepository;
 import org.com.rappid.repository.impl.ChefRepositoryImpl;
+import org.com.rappid.service.ChefServiceImpl;
+import org.com.rappid.stereotype.Repository;
 import org.jboss.arquillian.container.test.api.Deployment;
 import org.jboss.arquillian.junit.Arquillian;
 import org.jboss.shrinkwrap.api.Archive;
@@ -33,10 +34,11 @@ public class ChefServiceImplITest {
     @Deployment
     public static Archive<?> createDeployment() {
         return ShrinkWrap.create(JavaArchive.class, "test.jar")
-                .addClasses(ChefServiceImpl.class)
+                .addClasses(ChefServiceImpl.class, ChefServiceStub.class)
                 .addClasses(GenericMapper.class, ChefMapper.class, ChefMapperImpl.class)
-                .addClasses(ChefRepository.class, ChefRepositoryImpl.class)
+                .addClasses(ChefRepository.class, ChefRepositoryImpl.class, Repository.class)
                 .addPackages(true, "org.com.rappid.repository.jpa", "org.com.rappid.entity")
+                .addPackages(true, "org.com.rappid.group", "org.com.rappid.constraint")
                 .addPackages(true, "org.com.rappid.domain", "org.com.rappid.catalog")
                 .addPackages(true, "org.com.rappid.event", "org.com.rappid.api")
                 .addAsResource(new ClassLoaderAsset("META-INF/persistence.xml"), "META-INF/persistence.xml")

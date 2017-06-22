@@ -13,10 +13,11 @@ import java.util.Optional;
 /**
  * Created by PINA on 24/05/2017.
  */
+
 public abstract class GenericJPARepositoryImpl<T extends Serializable, ID> implements GenericJPARepository<T, ID> {
 
     @PersistenceContext
-    private EntityManager entityManager;
+    protected EntityManager entityManager;
 
     private final Class<T> persistentClass;
 

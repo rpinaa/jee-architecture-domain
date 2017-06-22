@@ -20,10 +20,10 @@ import javax.validation.constraints.Size;
 @EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
 @NamedNativeQueries({
-    @NamedNativeQuery(
-            name = "Account.delete",
-            query = "UPDATE T_RAPPID_ACCOUNT SET DELETED = 1 WHERE ID_ACCOUNT = ?"
-    )
+        @NamedNativeQuery(
+                name = "Account.delete",
+                query = "UPDATE T_RAPPID_ACCOUNT SET DELETED = 1 WHERE ID_ACCOUNT = ?"
+        )
 })
 public class AccountEntity extends AbstractEntity {
 
@@ -32,17 +32,17 @@ public class AccountEntity extends AbstractEntity {
     private String id;
 
     @Size(min = 2, max = 80)
-    @NotNull(groups = {CreateChefGroup.class})
+    @NotNull(groups = {CreateChefGroup.class, UpdateChefGroup.class})
     @Column(name = "FIRST_NAME", length = 80)
     private String firstName;
 
     @Size(min = 2, max = 80)
-    @NotNull(groups = {CreateChefGroup.class})
+    @NotNull(groups = {CreateChefGroup.class, UpdateChefGroup.class})
     @Column(name = "LAST_NAME", length = 80)
     private String lastName;
 
-    @Email(groups = {CreateChefGroup.class})
-    @NotNull(groups = {CreateChefGroup.class})
+    @Email
+    @NotNull(groups = {CreateChefGroup.class, UpdateChefGroup.class})
     @Column(name = "EMAIL", length = 50)
     private String email;
 

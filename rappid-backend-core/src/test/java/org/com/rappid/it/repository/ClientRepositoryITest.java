@@ -25,8 +25,11 @@ public class ClientRepositoryITest {
     @Deployment
     public static Archive<?> createDeployment() {
         return ShrinkWrap.create(JavaArchive.class, "test.jar")
-                .addClasses(ClientRepository.class, ClientRepositoryImpl.class)
+                .addClasses(ClientRepository.class, ClientRepositoryImpl.class, Repository.class)
                 .addPackages(true, "org.com.rappid.repository.jpa", "org.com.rappid.entity")
+                .addPackages(true, "org.com.rappid.group", "org.com.rappid.constraint")
+                .addPackages(true, "org.com.rappid.domain", "org.com.rappid.catalog")
+                .addPackages(true, "org.com.rappid.event", "org.com.rappid.api")
                 .addAsResource(new ClassLoaderAsset("META-INF/persistence.xml"), "META-INF/persistence.xml")
                 .addAsManifestResource(EmptyAsset.INSTANCE, "beans.xml");
     }
