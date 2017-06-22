@@ -65,7 +65,7 @@ $ cd jee-architecture-domain
 
 For local environment:
 
-(TomEE 7 embedded)
+(TomEE 8 embedded)
 
 ```sh
 $ mvn clean test -P local
@@ -73,7 +73,7 @@ $ mvn clean test -P local
 
 For development environment:
 
-(Wildfly 8 embedded)
+(Wildfly 10 embedded)
 
 ```sh
 $ mvn clean test -P development
