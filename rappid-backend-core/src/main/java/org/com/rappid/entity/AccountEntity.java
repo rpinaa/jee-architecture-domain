@@ -4,6 +4,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import org.com.rappid.constraint.Email;
+import org.com.rappid.group.chef.ConfirmChefGroup;
 import org.com.rappid.group.chef.CreateChefGroup;
 import org.com.rappid.group.chef.UpdateChefGroup;
 
@@ -47,7 +48,7 @@ public class AccountEntity extends AbstractEntity {
     private String email;
 
     @Lob
-    @NotNull(groups = {UpdateChefGroup.class})
+    @NotNull(groups = {ConfirmChefGroup.class})
     @Column(name = "SECRET")
     private byte[] secret;
 
