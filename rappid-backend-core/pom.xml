@@ -18,6 +18,7 @@
         <project.build.filterLevel>..</project.build.filterLevel>
 
         <org.mapstruct.version>1.2.0.Beta3</org.mapstruct.version>
+
         <org.junit.version>4.12</org.junit.version>
         <org.mockito.version>2.0.2-beta</org.mockito.version>
         <org.h2.version>1.4.196</org.h2.version>
@@ -145,6 +146,7 @@
                                 <addClasspath>true</addClasspath>
                             </manifest>
                         </archive>
+                        <generateClient>false</generateClient>
                     </configuration>
                 </plugin>
             </plugins>
@@ -248,23 +250,47 @@
             <dependencies>
                 <!-- Integration Testing  -->
 
-                <!-- Wildfly 8 Default Embedded Full Profile  -->
+                <!-- Wildfly 10 Default Embedded Full Profile  -->
+                <dependency>
+                    <groupId>org.glassfish.web</groupId>
+                    <artifactId>el-impl</artifactId>
+                    <version>2.2</version>
+                    <scope>test</scope>
+                </dependency>
+                <dependency>
+                    <groupId>org.hibernate</groupId>
+                    <artifactId>hibernate-validator</artifactId>
+                    <version>5.4.0.Final</version>
+                    <scope>test</scope>
+                </dependency>
+                <dependency>
+                    <groupId>org.hibernate</groupId>
+                    <artifactId>hibernate-validator-annotation-processor</artifactId>
+                    <version>5.4.0.Final</version>
+                    <scope>test</scope>
+                </dependency>
                 <dependency>
                     <groupId>org.wildfly</groupId>
                     <artifactId>wildfly-arquillian-container-embedded</artifactId>
-                    <version>8.1.0.Final</version>
+                    <version>8.2.1.Final</version>
                     <scope>test</scope>
                 </dependency>
                 <dependency>
                     <groupId>org.wildfly</groupId>
                     <artifactId>wildfly-embedded</artifactId>
-                    <version>8.1.0.Final</version>
+                    <version>${wildfly.version}</version>
                     <scope>test</scope>
                 </dependency>
-                <!-- / Wildfly 8 Default Embedded Full Profile  -->
+                <!-- / Integration Testing  -->
             </dependencies>
 
             <build>
+                <testResources>
+                    <testResource>
+                        <directory>src/test/resources</directory>
+                        <filtering>true</filtering>
+                    </testResource>
+                </testResources>
                 <plugins>
                     <plugin>
                         <groupId>org.apache.maven.plugins</groupId>
@@ -282,7 +308,7 @@
                                         <artifactItem>
                                             <groupId>org.wildfly</groupId>
                                             <artifactId>wildfly-dist</artifactId>
-                                            <version>8.1.0.Final</version>
+                                            <version>${wildfly.version}</version>
                                             <type>zip</type>
                                             <overWrite>false</overWrite>
                                             <outputDirectory>target</outputDirectory>
@@ -300,9 +326,13 @@
                             <forkMode>always</forkMode>
                             <systemPropertyVariables>
                                 <java.util.logging.manager>org.jboss.logmanager.LogManager</java.util.logging.manager>
-                                <jboss.home>${project.basedir}/target/wildfly-8.1.0.Final</jboss.home>
-                                <module.path>${project.basedir}/target/wildfly-8.1.0.Final/modules</module.path>
+                                <arquillian.launch>wildfly</arquillian.launch>
+                                <jboss.home>${project.basedir}/target/wildfly-${wildfly.version}</jboss.home>
+                                <module.path>${project.basedir}/target/wildfly-${wildfly.version}/modules</module.path>
                             </systemPropertyVariables>
+                            <environmentVariables>
+                                <JBOSS_HOME>${project.basedir}/target/wildfly-${wildfly.version}</JBOSS_HOME>
+                            </environmentVariables>
                             <redirectTestOutputToFile>false</redirectTestOutputToFile>
                         </configuration>
                     </plugin>

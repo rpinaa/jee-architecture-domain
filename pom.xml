@@ -66,6 +66,7 @@
         <lombok.version>1.16.16</lombok.version>
         <tomee.version>7.0.2</tomee.version>
         <glassfish.version>4.1.1</glassfish.version>
+        <wildfly.version>10.0.0.Alpha6</wildfly.version>
     </properties>
 
     <dependencies>
