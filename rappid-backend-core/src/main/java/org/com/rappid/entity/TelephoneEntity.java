@@ -23,10 +23,10 @@ public class TelephoneEntity extends AbstractEntity {
     @Column(name = "ID_TELEPHONE", length = 36, nullable = false, updatable = false)
     private String id;
 
-    @NotNull(groups = UpdateChefGroup.class)
     @Getter(AccessLevel.NONE)
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "FK_ID_CHEF")
+    @NotNull(groups = UpdateChefGroup.class)
     private ChefEntity chef;
 
     @Size(min = 2, max = 15)
@@ -34,14 +34,14 @@ public class TelephoneEntity extends AbstractEntity {
     @Column(name = "NAME", length = 15)
     private String name;
 
-    @Size(min = 2, max = 10)
+    @Size(min = 2, max = 5)
     @NotNull(groups = {CreateClientGroup.class, UpdateChefGroup.class})
-    @Column(name = "LADA", length = 10)
+    @Column(name = "LADA", length = 5)
     private String lada;
 
-    @Size(min = 5, max = 12)
+    @Size(min = 5, max = 15)
     @NotNull(groups = {CreateClientGroup.class, UpdateChefGroup.class})
-    @Column(name = "NUMBER", length = 12)
+    @Column(name = "NUMBER", length = 15)
     private String number;
 
     @NotNull(groups = {CreateClientGroup.class, UpdateChefGroup.class})
