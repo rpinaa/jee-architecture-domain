@@ -7,10 +7,18 @@
     <persistence-unit name="PU" transaction-type="JTA">
         <jta-data-source>${app.jta.datasource}</jta-data-source>
         <properties>
+            <!-- JPA properties -->
             <property name="javax.persistence.schema-generation.database.action" value="${app.schema.action}" />
             <property name="javax.persistence.schema-generation.create-source" value="${app.schema.create}"/>
             <property name="javax.persistence.schema-generation.drop-source" value="${app.schema.drop}"/>
+
+            <!-- OpenJPA properties -->
             <property name="openjpa.jdbc.SynchronizeMappings" value="buildSchema(ForeignKeys=true)"/>
+
+            <!-- Hibernate properties -->
+            <property name="hibernate.show_sql" value="true" />
+            <property name="hibernate.format_sql" value="true" />
+            <property name="hibernate.dialect" value="org.hibernate.dialect.MySQL5InnoDBDialect" />
         </properties>
     </persistence-unit>
 </persistence>
