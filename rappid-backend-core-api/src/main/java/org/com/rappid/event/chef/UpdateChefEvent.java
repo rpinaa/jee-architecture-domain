@@ -14,5 +14,6 @@ import org.com.rappid.event.UpdateEvent;
 @AllArgsConstructor
 @EqualsAndHashCode(callSuper = true)
 public class UpdateChefEvent extends UpdateEvent {
+
     private Chef chef;
 }

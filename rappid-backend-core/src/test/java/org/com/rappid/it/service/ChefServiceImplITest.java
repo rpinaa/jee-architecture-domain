@@ -1,6 +1,7 @@
 package org.com.rappid.it.service;
 
 import org.com.rappid.api.ChefService;
+import org.com.rappid.catalog.ChefStatusType;
 import org.com.rappid.event.chef.*;
 import org.com.rappid.it.service.stub.ChefServiceStub;
 import org.com.rappid.mapper.ChefMapper;
@@ -95,5 +96,27 @@ public class ChefServiceImplITest {
         Assert.assertNotNull(responseChefEvent);
         Assert.assertNotNull(responseChefEvent.getChef());
         Assert.assertEquals(responseChefEvent.getChef(), this.responseChefEvent.getChef());
+    }
+
+    @Test
+    public void updateChef() throws ExecutionException, InterruptedException {
+
+        final UpdateChefEvent updateChefEvent = UpdateChefEvent.builder()
+                .chef(this.responseChefEvent.getChef())
+                .build();
+
+        updateChefEvent.getChef().setCurp("RTYU810114MDFXRR11");
+        updateChefEvent.getChef().setRfc("RTYU810114F34");
+        updateChefEvent.getChef().setRating(1F);
+        updateChefEvent.getChef().setChefStatusType(ChefStatusType.REGISTERED);
+
+        final ResponseChefEvent responseChefEvent = this.chefService.updateChef(updateChefEvent).get();
+
+        Assert.assertNotNull(responseChefEvent);
+        Assert.assertNotNull(responseChefEvent.getChef());
+        Assert.assertEquals(responseChefEvent.getChef().getCurp(),"RTYU810114MDFXRR11");
+        Assert.assertEquals(responseChefEvent.getChef().getRfc(),"RTYU810114F34");
+        Assert.assertEquals(responseChefEvent.getChef().getRating(), new Float(1));
+        Assert.assertEquals(responseChefEvent.getChef().getChefStatusType(), ChefStatusType.REGISTERED);
     }
 }
