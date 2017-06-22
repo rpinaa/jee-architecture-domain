@@ -13,4 +13,11 @@ import javax.enterprise.context.ApplicationScoped;
 @Repository
 @ApplicationScoped
 public class ChefRepositoryImpl extends GenericJPARepositoryImpl<ChefEntity, String> implements ChefRepository {
+
+    @Override
+    public void delete(final String id) {
+        this.entityManager.createNamedQuery("Chef.delete")
+                .setParameter(1, id)
+                .executeUpdate();
+    }
 }

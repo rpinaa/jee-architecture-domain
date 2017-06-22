@@ -13,4 +13,11 @@ import javax.enterprise.context.ApplicationScoped;
 @Repository
 @ApplicationScoped
 public class ClientRepositoryImpl extends GenericJPARepositoryImpl<ClientEntity, String> implements ClientRepository {
+
+    @Override
+    public void delete(final String id) {
+        this.entityManager.createNamedQuery("Client.delete")
+                .setParameter(1, id)
+                .executeUpdate();
+    }
 }
