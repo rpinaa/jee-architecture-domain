@@ -20,5 +20,7 @@ public interface GenericJPARepository<T extends Serializable, ID> {
 
     void delete(final T entity);
 
+    void deleteAll();
+
     List<T> findAll(final int page, final int size);
 }

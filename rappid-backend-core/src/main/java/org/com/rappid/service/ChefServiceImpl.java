@@ -16,7 +16,6 @@ import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.transaction.Transactional;
 import java.util.List;
-import java.util.Optional;
 import java.util.concurrent.Future;
 
 /**
@@ -85,5 +84,13 @@ public class ChefServiceImpl implements ChefService {
     public void deleteChef(final DeleteChefEvent event) {
 
         this.chefRepository.delete(event.getId());
+    }
+
+    @Override
+    @Asynchronous
+    @Transactional
+    public void deleteChefs() {
+
+        this.chefRepository.deleteAll();
     }
 }

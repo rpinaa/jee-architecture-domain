@@ -80,8 +80,8 @@ public class ChefServiceImplITest {
 
         Assert.assertNotNull(catalogChefEvent);
         Assert.assertNotNull(catalogChefEvent.getChefs());
-        Assert.assertEquals(catalogChefEvent.getChefs().size(), 4);
-        Assert.assertEquals(catalogChefEvent.getTotal(), 4);
+        Assert.assertEquals(catalogChefEvent.getChefs().size(), 3);
+        Assert.assertEquals(catalogChefEvent.getTotal(), 3);
     }
 
     @Test
@@ -128,5 +128,20 @@ public class ChefServiceImplITest {
                 .build();
 
         this.chefService.deleteChef(deleteChefEvent);
+    }
+
+    @Test
+    public void shouldDeleteChefs() throws ExecutionException, InterruptedException {
+
+        this.chefService.deleteChefs();
+
+        final RequestAllChefEvent requestAllChefEvent = RequestAllChefEvent.builder().limit(10).page(1).build();
+
+        final CatalogChefEvent catalogChefEvent = this.chefService.getChefs(requestAllChefEvent).get();
+
+        Assert.assertNotNull(catalogChefEvent);
+        Assert.assertNotNull(catalogChefEvent.getChefs());
+        Assert.assertEquals(catalogChefEvent.getChefs().size(), 0);
+        Assert.assertEquals(catalogChefEvent.getTotal(), 0);
     }
 }
