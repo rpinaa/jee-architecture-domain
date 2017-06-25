@@ -16,6 +16,7 @@ import javax.ejb.Stateless;
 import javax.inject.Inject;
 import javax.transaction.Transactional;
 import java.util.List;
+import java.util.Optional;
 import java.util.concurrent.Future;
 
 /**
@@ -35,9 +36,9 @@ public class ChefServiceImpl implements ChefService {
     @Override
     @Asynchronous
     @Transactional
-    public Future<ResponseChefEvent> createChef(final CreateChefEvent createChefEvent) {
+    public Future<ResponseChefEvent> createChef(final CreateChefEvent event) {
 
-        final ChefEntity chefEntity = this.chefMapper.map(createChefEvent.getChef(), CreateChefGroup.class);
+        final ChefEntity chefEntity = this.chefMapper.map(event.getChef(), CreateChefGroup.class);
 
         this.chefRepository.insert(chefEntity);
 
@@ -47,9 +48,9 @@ public class ChefServiceImpl implements ChefService {
     @Override
     @Asynchronous
     @Transactional
-    public Future<ResponseChefEvent> getChefByIdChef(final RequestChefEvent requestChefEvent) {
+    public Future<ResponseChefEvent> getChef(final RequestChefEvent event) {
 
-        final ChefEntity chefEntity = this.chefRepository.findById(requestChefEvent.getId());
+        final ChefEntity chefEntity = this.chefRepository.findOne(event.getId());
 
         return new AsyncResult<>(ResponseChefEvent.builder().chef(this.chefMapper.map(chefEntity)).build());
     }
@@ -57,10 +58,9 @@ public class ChefServiceImpl implements ChefService {
     @Override
     @Asynchronous
     @Transactional
-    public Future<CatalogChefEvent> getAllChefs(final RequestAllChefEvent requestAllChefEvent) {
+    public Future<CatalogChefEvent> getChefs(final RequestAllChefEvent event) {
 
-        final List<ChefEntity> chefEntities = this.chefRepository
-                .findAll(requestAllChefEvent.getPage() - 1, requestAllChefEvent.getLimit());
+        final List<ChefEntity> chefEntities = this.chefRepository.findAll(event.getPage() - 1, event.getLimit());
         final long total = this.chefRepository.count();
 
         return new AsyncResult<>(CatalogChefEvent.builder()
@@ -70,9 +70,9 @@ public class ChefServiceImpl implements ChefService {
     @Override
     @Asynchronous
     @Transactional
-    public Future<ResponseChefEvent> updateChef(final UpdateChefEvent updateChefEvent) {
+    public Future<ResponseChefEvent> updateChef(final UpdateChefEvent event) {
 
-        final ChefEntity chefEntity = this.chefMapper.map(updateChefEvent.getChef(), CreateChefGroup.class, UpdateChefGroup.class);
+        final ChefEntity chefEntity = this.chefMapper.map(event.getChef(), UpdateChefGroup.class);
 
         this.chefRepository.update(chefEntity);
 
@@ -81,8 +81,9 @@ public class ChefServiceImpl implements ChefService {
 
     @Override
     @Asynchronous
-    @Transactional(value = Transactional.TxType.REQUIRES_NEW)
-    public void deleteChefByIdChef(final DeleteChefEvent deleteChefEvent) {
-        this.chefRepository.delete(deleteChefEvent.getId());
+    @Transactional
+    public void deleteChef(final DeleteChefEvent event) {
+
+        this.chefRepository.delete(event.getId());
     }
 }
