@@ -60,7 +60,7 @@ public class ChefServiceImplITest {
     }
 
     @Test
-    public void createChef() {
+    public void shouldCreateChef() {
 
         Assert.assertNotNull(this.responseChefEvent);
         Assert.assertNotNull(this.responseChefEvent.getChef());
@@ -72,26 +72,26 @@ public class ChefServiceImplITest {
     }
 
     @Test
-    public void getAllChefs() throws ExecutionException, InterruptedException {
+    public void shouldGetAllChefs() throws ExecutionException, InterruptedException {
 
         final RequestAllChefEvent requestAllChefEvent = RequestAllChefEvent.builder().limit(10).page(1).build();
 
-        final CatalogChefEvent catalogChefEvent = this.chefService.getAllChefs(requestAllChefEvent).get();
+        final CatalogChefEvent catalogChefEvent = this.chefService.getChefs(requestAllChefEvent).get();
 
         Assert.assertNotNull(catalogChefEvent);
         Assert.assertNotNull(catalogChefEvent.getChefs());
-        Assert.assertEquals(catalogChefEvent.getChefs().size(), 1);
-        Assert.assertEquals(catalogChefEvent.getTotal(), 1);
+        Assert.assertEquals(catalogChefEvent.getChefs().size(), 4);
+        Assert.assertEquals(catalogChefEvent.getTotal(), 4);
     }
 
     @Test
-    public void getChef() throws ExecutionException, InterruptedException {
+    public void shouldGetChef() throws ExecutionException, InterruptedException {
 
         final RequestChefEvent requestChefEvent = RequestChefEvent.builder()
                 .id(this.responseChefEvent.getChef().getId())
                 .build();
 
-        final ResponseChefEvent responseChefEvent = this.chefService.getChefByIdChef(requestChefEvent).get();
+        final ResponseChefEvent responseChefEvent = this.chefService.getChef(requestChefEvent).get();
 
         Assert.assertNotNull(responseChefEvent);
         Assert.assertNotNull(responseChefEvent.getChef());
@@ -99,7 +99,7 @@ public class ChefServiceImplITest {
     }
 
     @Test
-    public void updateChef() throws ExecutionException, InterruptedException {
+    public void shouldUpdateChef() throws ExecutionException, InterruptedException {
 
         final UpdateChefEvent updateChefEvent = UpdateChefEvent.builder()
                 .chef(this.responseChefEvent.getChef())
@@ -108,7 +108,7 @@ public class ChefServiceImplITest {
         updateChefEvent.getChef().setCurp("RTYU810114MDFXRR11");
         updateChefEvent.getChef().setRfc("RTYU810114F34");
         updateChefEvent.getChef().setRating(1F);
-        updateChefEvent.getChef().setChefStatusType(ChefStatusType.REGISTERED);
+        updateChefEvent.getChef().setStatus(ChefStatusType.REGISTERED);
 
         final ResponseChefEvent responseChefEvent = this.chefService.updateChef(updateChefEvent).get();
 
@@ -117,6 +117,16 @@ public class ChefServiceImplITest {
         Assert.assertEquals(responseChefEvent.getChef().getCurp(),"RTYU810114MDFXRR11");
         Assert.assertEquals(responseChefEvent.getChef().getRfc(),"RTYU810114F34");
         Assert.assertEquals(responseChefEvent.getChef().getRating(), new Float(1));
-        Assert.assertEquals(responseChefEvent.getChef().getChefStatusType(), ChefStatusType.REGISTERED);
+        Assert.assertEquals(responseChefEvent.getChef().getStatus(), ChefStatusType.REGISTERED);
+    }
+
+    @Test
+    public void shouldDeleteChef() throws ExecutionException, InterruptedException {
+
+        final DeleteChefEvent deleteChefEvent = DeleteChefEvent.builder()
+                .id(this.responseChefEvent.getChef().getId())
+                .build();
+
+        this.chefService.deleteChef(deleteChefEvent);
     }
 }
