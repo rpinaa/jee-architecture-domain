@@ -1,63 +1,75 @@
---
--- Base de datos: rappiddb
---
+-- -----------------------------------------------------
+-- Table ACCOUNT
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `account` (
+  `id` VARCHAR(50) NOT NULL,
+  `first_name` VARCHAR(45) NULL,
+  `last_name` VARCHAR(45) NULL,
+  `email` VARCHAR(45) NULL,
+  `secret` BLOB NULL,
+  `create_date` DATE NULL,
+  `change_date` DATE NULL,
+  `deleted` bit(1) DEFAULT NULL,
+  PRIMARY KEY (`id`))
+  ENGINE = InnoDB;
 
-CREATE TABLE t_rappid_account (
-  ID_ACCOUNT varchar(40) NOT NULL,
-  CHANGE_DATE datetime DEFAULT NULL,
-  CREATE_DATE datetime DEFAULT NULL,
-  DELETED bit(1) DEFAULT NULL,
-  EMAIL varchar(50) DEFAULT NULL,
-  FIRST_NAME varchar(80) DEFAULT NULL,
-  LAST_NAME varchar(80) DEFAULT NULL,
-  SECRET blob
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+-- -----------------------------------------------------
+-- Table CHEF
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `chef` (
+  `id` VARCHAR(36) NOT NULL,
+  `status` VARCHAR(25) NULL,
+  `rfc` VARCHAR(45) NULL,
+  `curp` VARCHAR(45) NULL,
+  `rating` FLOAT NULL,
+  `create_date` DATE NULL,
+  `change_date` DATE NULL,
+  `deleted` bit(1) DEFAULT NULL,
+  `fk_id_account` VARCHAR(36) NOT NULL,
+  PRIMARY KEY (`id`),
+  CONSTRAINT `fk_chef_account`
+  FOREIGN KEY (`fk_id_account`)
+  REFERENCES `account` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+  ENGINE = InnoDB;
 
-INSERT INTO t_rappid_account (ID_ACCOUNT, CHANGE_DATE, CREATE_DATE, DELETED, EMAIL, FIRST_NAME, LAST_NAME, SECRET) VALUES
-('6a36adf3-70ac-4dfe-ac38-0d1aed5527e9', '2017-06-12 23:40:43', '2017-06-12 23:40:43', b'0', 'pinaarellano0@gmail.com', 'Ricardo Pina', 'Arellano', NULL);
+-- -----------------------------------------------------
+-- Table TELEPHONE
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `telephone` (
+  `id` VARCHAR(36) NOT NULL,
+  `name` VARCHAR(45) NULL,
+  `number` VARCHAR(15) NULL,
+  `lada` VARCHAR(4) NULL,
+  `type` VARCHAR(45) NULL,
+  `fk_id_chef` VARCHAR(36) NOT NULL,
+  PRIMARY KEY (`id`),
+  CONSTRAINT `fk_telephones_chef`
+  FOREIGN KEY (`fk_id_chef`)
+  REFERENCES `chef` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+  ENGINE = InnoDB;
 
-CREATE TABLE t_rappid_chef (
-  ID_CHEF varchar(40) NOT NULL,
-  CHANGE_DATE datetime DEFAULT NULL,
-  CREATE_DATE datetime DEFAULT NULL,
-  CHEF_STATUS varchar(20) DEFAULT NULL,
-  CURP varchar(18) DEFAULT NULL,
-  DELETED bit(1) DEFAULT NULL,
-  RATING double DEFAULT NULL,
-  RFC varchar(13) DEFAULT NULL,
-  FK_ID_ACCOUNT varchar(40) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
-INSERT INTO t_rappid_chef (ID_CHEF, CHANGE_DATE, CREATE_DATE, CHEF_STATUS, CURP, DELETED, RATING, RFC, FK_ID_ACCOUNT) VALUES
-('830ba08c-1440-4c24-99b8-b57fce305c37', '2017-06-12 23:40:43', '2017-06-12 23:40:43', NULL, 'WERT900114HDFXX05', b'0', NULL, 'WERT900114E45', '6a36adf3-70ac-4dfe-ac38-0d1aed5527e9');
-
-CREATE TABLE t_rappid_client (
-  ID_CLIENT varchar(32) NOT NULL,
-  CHANGE_DATE datetime DEFAULT NULL,
-  CREATE_DATE datetime DEFAULT NULL,
-  DELETED bit(1) DEFAULT NULL,
-  EMAIL varchar(50) DEFAULT NULL,
-  FIRST_NAME varchar(80) DEFAULT NULL,
-  LAST_NAME varchar(80) DEFAULT NULL,
-  SECRET blob,
-  FK_ID_TELEPHONE varchar(32) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
-CREATE TABLE t_rappid_telephone (
-  ID_TELEPHONE varchar(32) NOT NULL,
-  CHANGE_DATE datetime DEFAULT NULL,
-  CREATE_DATE datetime DEFAULT NULL,
-  LADA varchar(10) DEFAULT NULL,
-  NAME varchar(15) DEFAULT NULL,
-  NUMBER varchar(12) DEFAULT NULL,
-  TYPE varchar(10) DEFAULT NULL,
-  FK_ID_CHEF varchar(40) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=latin1;
-
-ALTER TABLE t_rappid_account ADD PRIMARY KEY (ID_ACCOUNT);
-
-ALTER TABLE t_rappid_chef ADD PRIMARY KEY (ID_CHEF), ADD KEY I_T_RPCHF_ACCOUNT (FK_ID_ACCOUNT);
-
-ALTER TABLE t_rappid_client ADD PRIMARY KEY (ID_CLIENT), ADD KEY I_T_RPLNT_TELEPHONE (FK_ID_TELEPHONE);
-
-ALTER TABLE t_rappid_telephone ADD PRIMARY KEY (ID_TELEPHONE), ADD KEY I_T_RPPHN_CHEF (FK_ID_CHEF);
+-- -----------------------------------------------------
+-- Table CLIENT
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `client` (
+  `id` VARCHAR(36) NOT NULL,
+  `status` VARCHAR(25) NULL,
+  `first_name` VARCHAR(45) NULL,
+  `last_name` VARCHAR(45) NULL,
+  `email` VARCHAR(45) NULL,
+  `rating` FLOAT NULL,
+  `create_date` DATE NULL,
+  `change_date` DATE NULL,
+  `deleted` bit(1) DEFAULT NULL,
+  `fk_id_telephone` VARCHAR(36) NOT NULL,
+  PRIMARY KEY (`id`),
+  CONSTRAINT `fk_client_telephone`
+  FOREIGN KEY (`fk_id_telephone`)
+  REFERENCES `telephone` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
+  ENGINE = InnoDB;

@@ -14,7 +14,7 @@ public interface GenericJPARepository<T extends Serializable, ID> {
 
     T update(final T entity);
 
-    T findById(final ID id);
+    T findOne(final ID id);
 
     void delete(final ID id);
 

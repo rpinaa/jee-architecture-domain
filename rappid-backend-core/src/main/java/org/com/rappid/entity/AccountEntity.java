@@ -4,6 +4,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import org.com.rappid.constraint.Email;
+import org.com.rappid.group.chef.ConfirmChefGroup;
 import org.com.rappid.group.chef.CreateChefGroup;
 import org.com.rappid.group.chef.UpdateChefGroup;
 
@@ -16,15 +17,9 @@ import javax.validation.constraints.Size;
  */
 @Data
 @Entity
-@Table(name = "T_RAPPID_ACCOUNT")
+@Table(name = "account")
 @EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
-@NamedNativeQueries({
-        @NamedNativeQuery(
-                name = "Account.delete",
-                query = "UPDATE T_RAPPID_ACCOUNT SET DELETED = 1 WHERE ID_ACCOUNT = ?"
-        )
-})
 public class AccountEntity extends AbstractEntity {
 
     @Id
@@ -47,10 +42,7 @@ public class AccountEntity extends AbstractEntity {
     private String email;
 
     @Lob
-    @NotNull(groups = {UpdateChefGroup.class})
+    @NotNull(groups = {ConfirmChefGroup.class})
     @Column(name = "SECRET")
     private byte[] secret;
-
-    @Column(name = "DELETED")
-    private boolean deleted;
 }

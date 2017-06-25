@@ -28,5 +28,5 @@ public class Chef {
     private String changeDate;
     private Float rating;
     private Account account;
-    private ChefStatusType chefStatusType;
+    private ChefStatusType status;
 }
