@@ -16,7 +16,7 @@ import javax.validation.constraints.Size;
  */
 @Data
 @Entity
-@Table(name = "T_RAPPID_CLIENT")
+@Table(name = "client")
 @EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
 public class ClientEntity extends AbstractEntity {

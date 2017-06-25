@@ -16,7 +16,7 @@ import java.util.Set;
  */
 @Data
 @Entity
-@Table(name = "T_RAPPID_CHEF")
+@Table(name = "chef")
 @EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
 public class ChefEntity extends AbstractEntity {
