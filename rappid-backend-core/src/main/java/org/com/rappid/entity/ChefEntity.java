@@ -19,12 +19,6 @@ import java.util.Set;
 @Table(name = "T_RAPPID_CHEF")
 @EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
-@NamedNativeQueries({
-    @NamedNativeQuery(
-            name = "Chef.delete",
-            query = "UPDATE T_RAPPID_CHEF SET DELETED = 1 WHERE ID_CHEF = ?"
-    )
-})
 public class ChefEntity extends AbstractEntity {
 
     @Id
@@ -32,7 +26,7 @@ public class ChefEntity extends AbstractEntity {
     private String id;
 
     @Valid
-    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @OneToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinColumn(name = "FK_ID_ACCOUNT")
     private AccountEntity account;
 
@@ -58,8 +52,5 @@ public class ChefEntity extends AbstractEntity {
     @NotNull(groups = {UpdateChefGroup.class})
     @Column(name = "CHEF_STATUS", length = 20)
     @Enumerated(EnumType.STRING)
-    private ChefStatusEnum chefStatusEnum;
-
-    @Column(name = "DELETED")
-    private boolean deleted;
+    private ChefStatusEnum status;
 }

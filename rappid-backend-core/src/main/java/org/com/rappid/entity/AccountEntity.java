@@ -20,12 +20,6 @@ import javax.validation.constraints.Size;
 @Table(name = "T_RAPPID_ACCOUNT")
 @EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
-@NamedNativeQueries({
-        @NamedNativeQuery(
-                name = "Account.delete",
-                query = "UPDATE T_RAPPID_ACCOUNT SET DELETED = 1 WHERE ID_ACCOUNT = ?"
-        )
-})
 public class AccountEntity extends AbstractEntity {
 
     @Id
@@ -51,7 +45,4 @@ public class AccountEntity extends AbstractEntity {
     @NotNull(groups = {ConfirmChefGroup.class})
     @Column(name = "SECRET")
     private byte[] secret;
-
-    @Column(name = "DELETED")
-    private boolean deleted;
 }
