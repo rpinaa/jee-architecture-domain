@@ -76,6 +76,13 @@ public abstract class GenericJPARepositoryImpl<T extends Serializable, ID> imple
     }
 
     @Override
+    public void deleteAll() {
+        this.entityManager.createQuery("DELETE FROM " + this.persistentClass
+                .getSimpleName() + " T")
+                .executeUpdate();
+    }
+
+    @Override
     @SuppressWarnings("unchecked")
     public List<T> findAll(final int page, final int size) {
         return this.entityManager.createQuery("SELECT T FROM " + this.persistentClass
